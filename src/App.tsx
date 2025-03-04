@@ -1,15 +1,7 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router";
-import MarketDataPage from "./MarketDataPage";
-import CandlestickChartPage from "./CandlestickChartPage";
-
-function HomePage() {
-  return (
-    <>
-      <h1>Market Data App</h1>
-      <p>Click on Market Data to view the dashboard</p>
-    </>
-  );
-}
+import MarketDataPage from "./pages/MarketDataPage";
+import CandlestickChartPage from "./pages/CandlestickChartPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (

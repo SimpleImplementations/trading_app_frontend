@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { MarketData } from "./types";
-import CandlestickChart from "./CandlestickChart";
+import { MarketData } from "../types";
+import CandlestickChart from "../components/CandlestickChart";
 
 function CandlestickChartPage() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
