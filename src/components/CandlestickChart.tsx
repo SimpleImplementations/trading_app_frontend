@@ -116,14 +116,21 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
   return (
     <div className="chart-container">
       <div className="candlestick-chart">
-        <ReactApexChart options={options} series={[{ data: seriesData }]} type="candlestick" height={350} />
+        <ReactApexChart
+          options={options}
+          series={[{ data: seriesData }]}
+          type="candlestick"
+          height={400}
+          width="100%"
+        />
       </div>
-      <div className="volume-chart" style={{ marginTop: "20px" }}>
+      <div className="volume-chart">
         <ReactApexChart
           options={volumeOptions}
           series={[{ name: "Volume", data: volumeData }]}
           type="bar"
           height={160}
+          width="100%"
         />
       </div>
     </div>
