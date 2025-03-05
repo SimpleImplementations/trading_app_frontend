@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MarketData } from "../types";
+import { MarketData } from "../types/apiModels";
 
 function MarketDataPage() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);

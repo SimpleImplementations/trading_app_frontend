@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MarketData } from "../types";
+import { MarketData } from "../types/apiModels";
 import CandlestickChart from "../components/CandlestickChart";
 
 function CandlestickChartPage() {

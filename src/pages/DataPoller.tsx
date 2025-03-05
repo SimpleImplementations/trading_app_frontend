@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MarketData } from "../types";
+import { MarketData } from "../types/apiModels";
 
 function DataPoller() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
