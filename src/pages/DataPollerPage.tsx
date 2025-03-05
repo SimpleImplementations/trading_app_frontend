@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MarketData } from "../types/apiModels";
 
-function DataPoller() {
+function DataPollerPage() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
@@ -83,4 +83,4 @@ function DataPoller() {
   );
 }
 
-export default DataPoller;
+export default DataPollerPage;
