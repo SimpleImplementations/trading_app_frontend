@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import DataPollerPage from "./pages/DataPollerPage";
 import ExecutionConfigPage from "./pages/ExecutionConfigPage";
 import { ExecutionConfigProvider } from "./contexts/ExecutionConfigContext";
+import RenderIfConfigured from "./components/RenderIfConfigured";
 
 function App() {
   return (
@@ -21,9 +22,21 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/market-data" element={<MarketDataPage />} />
-              <Route path="/chart" element={<CandlestickChartPage />} />
-              <Route path="/data-poller" element={<DataPollerPage />} />
+              <Route path="/market-data" element={
+                <RenderIfConfigured>
+                  <MarketDataPage />
+                </RenderIfConfigured>
+              } />
+              <Route path="/chart" element={
+                <RenderIfConfigured>
+                  <CandlestickChartPage />
+                </RenderIfConfigured>
+              } />
+              <Route path="/data-poller" element={
+                <RenderIfConfigured>
+                  <DataPollerPage />
+                </RenderIfConfigured>
+              } />
               <Route path="/execution-config" element={<ExecutionConfigPage />} />
             </Routes>
           </div>
