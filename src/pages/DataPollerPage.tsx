@@ -1,13 +1,9 @@
-import { useState } from "react";
 import { MarketData } from "../interfaces/apiModels";
 import MarketDataPoller from "../components/MarketDataPoller";
+import { useMarketDataFromPoller } from "../hooks/use-market-data-from-poller";
 
 function DataPollerPage() {
-  const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
-
-  const handleDataReceived = (data: MarketData) => {
-    setMarketDataArray((prevData) => [...prevData, data]);
-  };
+  const [marketDataArray, handleDataReceived] = useMarketDataFromPoller();
 
   return (
     <div>
