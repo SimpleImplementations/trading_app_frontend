@@ -20,6 +20,8 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
       console.log(json);
       if (json !== null) {
         onDataReceived(json as MarketData);
+      } else {
+        stopPolling();
       }
     } catch (error) {
       console.error(error);
