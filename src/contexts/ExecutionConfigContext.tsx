@@ -1,13 +1,45 @@
-import { createContext, useContext, ReactNode } from "react";
-import { ExecutionConfig } from "../types/executionConfig";
-import { executionConfig } from "../config";
+import { createContext, ReactNode, useContext, useState } from "react";
+import { ExecutionConfigContextType } from "../types/executionContextConfigType";
+import { ExecutionConfig } from "../interfaces/executionConfig";
 
-const ExecutionConfigContext = createContext<ExecutionConfig>(executionConfig);
 
-export function ExecutionConfigProvider({ children }: { children: ReactNode }) {
-  return <ExecutionConfigContext.Provider value={executionConfig}>{children}</ExecutionConfigContext.Provider>;
+const ExecutionConfigContext = createContext<ExecutionConfigContextType>({
+  executionConfig: null,
+  updateExecutionConfig: () => {},
+});
+
+export function useExecutionConfig() {
+  const context = useContext(ExecutionConfigContext);
+  return context.executionConfig;
 }
 
-export function useConfig() {
-  return useContext(ExecutionConfigContext);
+export function useUpdateExecutionConfig() {
+  const context = useContext(ExecutionConfigContext);
+  if (context.executionConfig) {
+    return (_config: any) => {
+      console.warn("Configuration already set for this app instance. Update ignored.");
+      return null;
+    };
+
+  }
+  return context.updateExecutionConfig;
+}
+
+export function ExecutionConfigProvider({children}: { 
+  children: ReactNode;
+}) {
+  
+  const [executionConfig, setExecutionConfig] = useState<ExecutionConfig | null>(null)
+
+  const updateExecutionConfig = (executionConfig: ExecutionConfig) => {
+    setExecutionConfig(executionConfig);
+  };
+
+  const value = {executionConfig, updateExecutionConfig};
+
+  return (
+    <ExecutionConfigContext.Provider value={value}>
+      {children}
+    </ExecutionConfigContext.Provider>
+  );
 }

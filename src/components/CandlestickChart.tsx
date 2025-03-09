@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { MarketData } from "../types/apiModels";
+import { MarketData } from "../interfaces/apiModels";
 
 interface CandlestickChartProps {
   data: MarketData[];

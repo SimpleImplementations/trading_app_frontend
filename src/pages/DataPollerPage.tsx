@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MarketData } from "../types/apiModels";
+import { MarketData } from "../interfaces/apiModels";
 
 function DataPollerPage() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
@@ -18,11 +18,9 @@ function DataPollerPage() {
   };
 
   const startClientPolling = () => {
-    // Only start if not already polling
     if (!isPolling) {
       setIsPolling(true);
 
-      // Start the interval and store the interval ID
       pollingIntervalRef.current = window.setInterval(() => {
         fetchData();
       }, 5000); // Poll every 5 seconds
@@ -31,14 +29,12 @@ function DataPollerPage() {
 
   const stopClientPolling = () => {
     if (isPolling && pollingIntervalRef.current !== null) {
-      // Clear the interval
       window.clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
       setIsPolling(false);
     }
   };
 
-  // Clean up the interval when the component unmounts
   useEffect(() => {
     return () => {
       if (pollingIntervalRef.current !== null) {
