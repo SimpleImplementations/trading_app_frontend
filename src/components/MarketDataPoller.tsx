@@ -7,18 +7,20 @@ interface DataPollerProps {
 }
 
 function MarketDataPoller({ onDataReceived }: DataPollerProps) {
-  const executionConfig = useExecutionConfig()
+  const executionConfig = useExecutionConfig();
 
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
   const alreadyCalledOnce = useRef(false);
-  
+
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:8002/api/market_data/mock_broker_always_new_data");
       const json = await response.json();
       console.log(json);
-      onDataReceived(json as MarketData);
+      if (json !== null) {
+        onDataReceived(json as MarketData);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -36,7 +38,7 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
 
   const stopPolling = () => {
     // don't check of isPolling because with strict mode it seems to be false
-    if (pollingIntervalRef.current !== null) { 
+    if (pollingIntervalRef.current !== null) {
       window.clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
       setIsPolling(false);
@@ -44,22 +46,22 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
     }
   };
 
-
   useEffect(() => {
     // // Only set up polling once, even if effect runs twice, this ocurres because of the strict mode
     if (!alreadyCalledOnce.current) {
       alreadyCalledOnce.current = true;
       fetchData(); // Initial data fetch
-      }
-    
+    }
+
     startPolling(); // Start the polling interval
 
-    return () => {// Cleanup function
+    return () => {
+      // Cleanup function
       stopPolling();
     };
   }, []);
 
-  return null
+  return null;
 }
 
 export default MarketDataPoller;
