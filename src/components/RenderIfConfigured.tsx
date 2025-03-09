@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { useExecutionConfigUnsafe } from "../contexts/ExecutionConfigContext";
 
 function RenderIfConfigured({ children }: { children: ReactNode }) {
 
-  const executionConfig = useExecutionConfig()
+  const executionConfig = useExecutionConfigUnsafe()
 
   return (
     <div>

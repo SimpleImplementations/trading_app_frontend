@@ -8,8 +8,10 @@ interface DataPollerProps {
 
 function MarketDataPoller({ onDataReceived }: DataPollerProps) {
   const executionConfig = useExecutionConfig()
+
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
+  const alreadyCalledOnce = useRef(false);
   
   const fetchData = async () => {
     try {
@@ -22,7 +24,7 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
     }
   };
 
-  const startClientPolling = () => {
+  const startPolling = () => {
     if (!isPolling) {
       setIsPolling(true);
 
@@ -32,27 +34,32 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
     }
   };
 
-  const stopClientPolling = () => {
-    if (isPolling && pollingIntervalRef.current !== null) {
+  const stopPolling = () => {
+    // don't check of isPolling because with strict mode it seems to be false
+    if (pollingIntervalRef.current !== null) { 
       window.clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
       setIsPolling(false);
+      console.log("properly stopped polling");
     }
   };
 
+
   useEffect(() => {
-    return () => { // cleanup function
-      if (pollingIntervalRef.current !== null) { 
-        window.clearInterval(pollingIntervalRef.current);
+    // // Only set up polling once, even if effect runs twice, this ocurres because of the strict mode
+    if (!alreadyCalledOnce.current) {
+      alreadyCalledOnce.current = true;
+      fetchData(); // Initial data fetch
       }
+    
+    startPolling(); // Start the polling interval
+
+    return () => {// Cleanup function
+      stopPolling();
     };
   }, []);
-  
-  return <div>
-          <button onClick={isPolling ? stopClientPolling : startClientPolling}>
-            {isPolling ? "Stop Client Polling" : "Start Client Polling"}
-          </button>
-        </div>
+
+  return null
 }
 
 export default MarketDataPoller;
