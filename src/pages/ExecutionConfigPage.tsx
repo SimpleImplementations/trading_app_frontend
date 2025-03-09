@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { defaultConfig, ExecutionConfig } from "../interfaces/executionConfig";
-import { useExecutionConfig, useUpdateExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { useExecutionConfigUnsafe, useUpdateExecutionConfig } from "../contexts/ExecutionConfigContext";
 
 function ExecutionConfigPage() {
 
-  const executionConfig = useExecutionConfig()
+  const executionConfig = useExecutionConfigUnsafe()
   const setExecutionConfig = useUpdateExecutionConfig()
 
   const [componentExecutionConfig, setComponentExecutionConfig] = useState<ExecutionConfig>(defaultConfig);

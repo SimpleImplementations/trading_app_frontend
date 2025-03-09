@@ -10,6 +10,14 @@ const ExecutionConfigContext = createContext<ExecutionConfigContextType>({
 
 export function useExecutionConfig() {
   const context = useContext(ExecutionConfigContext);
+  if (!context.executionConfig) {
+    throw new Error("useExecutionConfig must be used after configuration is initialized");
+  }
+  return context.executionConfig;
+}
+
+export function useExecutionConfigUnsafe() {
+  const context = useContext(ExecutionConfigContext);
   return context.executionConfig;
 }
 

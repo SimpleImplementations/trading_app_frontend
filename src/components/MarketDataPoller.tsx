@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { MarketData } from "../interfaces/apiModels";
+import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
 
 interface DataPollerProps {
   onDataReceived: (data: MarketData) => void;
 }
 
 function MarketDataPoller({ onDataReceived }: DataPollerProps) {
+  const executionConfig = useExecutionConfig()
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
   
@@ -26,7 +28,7 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
 
       pollingIntervalRef.current = window.setInterval(() => {
         fetchData();
-      }, 5000); // Poll every 5 seconds
+      }, executionConfig.pollingIntervalMs);
     }
   };
 
