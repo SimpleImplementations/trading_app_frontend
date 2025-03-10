@@ -1,27 +1,32 @@
 import { useEffect, useRef, useState } from "react";
-import { MarketData } from "../interfaces/apiModels";
 import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
-import { API_ENDPOINTS } from "../constants/api";
 
-interface DataPollerProps {
-  onDataReceived: (data: MarketData) => void;
+export interface DataPollerProps<T> {
+  fetchEndpoint: string;
+  onDataReceived: (data: T) => void;
 }
 
-function MarketDataPoller({ onDataReceived }: DataPollerProps) {
+function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
   const executionConfig = useExecutionConfig();
-
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
   const alreadyCalledOnce = useRef(false);
 
+  const transform = (data: any): T => {
+    return data as T;
+  };
+
   const fetchData = async () => {
     try {
-      const response = await fetch(API_ENDPOINTS.MARKET_DATA);
+      const response = await fetch(fetchEndpoint);
       const json = await response.json();
+
       console.log(json);
       if (json !== null) {
-        onDataReceived(json as MarketData);
+        const transformedData = transform(json);
+        onDataReceived(transformedData);
       } else {
+        // TODO check if this should be consider a valid response
         stopPolling();
       }
     } catch (error) {
@@ -67,4 +72,4 @@ function MarketDataPoller({ onDataReceived }: DataPollerProps) {
   return null;
 }
 
-export default MarketDataPoller;
+export default DataPoller;

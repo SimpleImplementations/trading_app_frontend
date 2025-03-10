@@ -1,6 +1,7 @@
 import { MarketData } from "../interfaces/apiModels";
-import MarketDataPoller from "../components/MarketDataPoller";
 import { useMarketDataFromPoller } from "../hooks/use-market-data-from-poller";
+import DataPoller from "../components/DataPoller";
+import { API_ENDPOINTS } from "../constants/api";
 
 function DataPollerPage() {
   const [marketDataArray, handleDataReceived] = useMarketDataFromPoller();
@@ -9,7 +10,7 @@ function DataPollerPage() {
     <div>
       <h1>Data Poller</h1>
 
-      <MarketDataPoller onDataReceived={handleDataReceived} />
+      <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleDataReceived} />
 
       {marketDataArray.length > 0 ? (
         <table>
