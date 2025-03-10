@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MarketData } from "../interfaces/apiModels";
+import { API_ENDPOINTS } from "../constants/api";
 
 function MarketDataPage() {
   const [marketDataArray, setMarketDataArray] = useState<MarketData[]>([]);
@@ -8,7 +9,7 @@ function MarketDataPage() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8002/api/market_data/mock_broker_always_new_data");
+      const response = await fetch(API_ENDPOINTS.MARKET_DATA);
       const json = await response.json();
       console.log(json);
       setMarketDataArray((prevData) => [...prevData, json as MarketData]);
@@ -21,7 +22,7 @@ function MarketDataPage() {
 
   const startPolling = async () => {
     try {
-      await fetch("http://localhost:8002/api/start_polling/mock_broker_always_new_data", {
+      await fetch(API_ENDPOINTS.START_SERVER_POLLING, {
         method: "POST",
       });
       alert("Polling started on server");
