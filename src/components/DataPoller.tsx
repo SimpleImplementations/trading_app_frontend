@@ -21,7 +21,6 @@ function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
       const response = await fetch(fetchEndpoint);
       const json = await response.json();
 
-      console.log(json);
       if (json !== null) {
         const transformedData = transform(json);
         onDataReceived(transformedData);

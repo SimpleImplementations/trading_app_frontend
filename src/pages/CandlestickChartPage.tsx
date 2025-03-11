@@ -1,6 +1,8 @@
 import CandlestickChart from "../components/CandlestickChart";
 import { useMarketData } from "../hooks/use-market-data";
-import MarketDataPoller from "../components/MarketDataPoller";
+import DataPoller from "../components/DataPoller";
+import { MarketData } from "../interfaces/apiModels";
+import { API_ENDPOINTS } from "../constants/api";
 
 function CandlestickChartPage() {
   const [marketDataArray, handleDataReceived] = useMarketData();
@@ -9,7 +11,7 @@ function CandlestickChartPage() {
     <div>
       <h1>Candlestick Chart</h1>
 
-      <MarketDataPoller onDataReceived={handleDataReceived} />
+      <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleDataReceived} />
 
       <div>
         {marketDataArray.length === 0 ? (
