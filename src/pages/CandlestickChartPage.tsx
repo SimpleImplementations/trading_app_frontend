@@ -1,9 +1,9 @@
 import CandlestickChart from "../components/CandlestickChart";
-import { useMarketDataFromPoller } from "../hooks/use-market-data-from-poller";
+import { useMarketData } from "../hooks/use-market-data";
 import MarketDataPoller from "../components/MarketDataPoller";
 
 function CandlestickChartPage() {
-  const [marketDataArray, handleDataReceived] = useMarketDataFromPoller();
+  const [marketDataArray, handleDataReceived] = useMarketData();
 
   return (
     <div>

@@ -1,10 +1,10 @@
 import { MarketData } from "../interfaces/apiModels";
-import { useMarketDataFromPoller } from "../hooks/use-market-data-from-poller";
+import { useMarketData } from "../hooks/use-market-data";
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";
 
 function DataPollerPage() {
-  const [marketDataArray, handleDataReceived] = useMarketDataFromPoller();
+  const [marketDataArray, handleDataReceived] = useMarketData();
 
   return (
     <div>
