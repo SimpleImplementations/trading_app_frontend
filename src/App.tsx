@@ -22,38 +22,10 @@ function App() {
           <div className="content">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route
-                path="/market-data"
-                element={
-                  <RenderIfConfigured>
-                    <MarketDataPage />
-                  </RenderIfConfigured>
-                }
-              />
-              <Route
-                path="/chart"
-                element={
-                  <RenderIfConfigured>
-                    <CandlestickChartPage />
-                  </RenderIfConfigured>
-                }
-              />
-              <Route
-                path="/data-poller"
-                element={
-                  <RenderIfConfigured>
-                    <DataPollerPage />
-                  </RenderIfConfigured>
-                }
-              />
-              <Route
-                path="/tables"
-                element={
-                  <RenderIfConfigured>
-                    <TablesPage />
-                  </RenderIfConfigured>
-                }
-              />
+              <Route path="/market-data" element={<RenderIfConfigured children={<MarketDataPage />} />} />
+              <Route path="/chart" element={<RenderIfConfigured children={<CandlestickChartPage />} />} />
+              <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
+              <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />
               <Route path="/execution-config" element={<ExecutionConfigPage />} />
             </Routes>
           </div>
