@@ -1,6 +1,6 @@
 import { BrowserRouter, Link, Route, Routes } from "react-router";
 import MarketDataPage from "./pages/MarketDataPage";
-import CandlestickChartPage from "./pages/CandlestickChartPage";
+import ChartPage from "./pages/ChartPage";
 import HomePage from "./pages/HomePage";
 import DataPollerPage from "./pages/DataPollerPage";
 import ExecutionConfigPage from "./pages/ExecutionConfigPage";
@@ -23,7 +23,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/market-data" element={<RenderIfConfigured children={<MarketDataPage />} />} />
-              <Route path="/chart" element={<RenderIfConfigured children={<CandlestickChartPage />} />} />
+              <Route path="/chart" element={<RenderIfConfigured children={<ChartPage />} />} />
               <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
               <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />
               <Route path="/execution-config" element={<ExecutionConfigPage />} />
