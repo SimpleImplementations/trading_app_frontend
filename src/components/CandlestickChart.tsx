@@ -23,7 +23,18 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
         show: true,
       },
       zoom: {
-        enabled: false,
+        enabled: true,
+      },
+      brush: {
+        enabled: true,
+        target: "volume",
+      },
+      selection: {
+        enabled: true,
+        xaxis: {
+          min: data.length > 0 ? new Date(data[0].timestamp).getTime() : undefined,
+          max: data.length > 0 ? new Date(data[data.length - 1].timestamp).getTime() : undefined,
+        },
       },
     },
     title: {
@@ -42,6 +53,17 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
     yaxis: {
       tooltip: {
         enabled: true,
+      },
+      labels: {
+        show: true,
+        minWidth: 200,
+        maxWidth: 200,
+        offsetX: 0, // Ensure this is identical between charts
+        align: "left", // Ensure label alignment is identical
+        padding: 4, // Set explicit padding and keep identical
+      },
+      axisBorder: {
+        offsetX: 0, // Ensure axis border offset is identical
       },
     },
   };

@@ -17,16 +17,9 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
     chart: {
       height: 160,
       type: "bar",
-      brush: {
-        enabled: true,
-        target: "candles",
-      },
+      id: "volume",
       selection: {
-        enabled: true,
-        xaxis: {
-          min: data.length > 0 ? new Date(data[0].timestamp).getTime() : undefined,
-          max: data.length > 0 ? new Date(data[data.length - 1].timestamp).getTime() : undefined,
-        },
+        enabled: false,
       },
     },
     dataLabels: {
@@ -56,11 +49,19 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
       },
     },
     yaxis: {
-      labels: {
-        show: true,
-      },
       title: {
         text: "Volume",
+      },
+      labels: {
+        show: true,
+        minWidth: 200,
+        maxWidth: 200,
+        offsetX: 0, // Ensure this is identical between charts
+        align: "left", // Ensure label alignment is identical
+        padding: 4, // Set explicit padding and keep identical
+      },
+      axisBorder: {
+        offsetX: 0, // Ensure axis border offset is identical
       },
     },
     tooltip: {
