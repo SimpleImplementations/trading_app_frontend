@@ -18,6 +18,7 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
       type: "candlestick",
       height: 350,
       id: "candles",
+      group: "market-charts",
       toolbar: {
         autoSelected: "zoom",
         show: true,
