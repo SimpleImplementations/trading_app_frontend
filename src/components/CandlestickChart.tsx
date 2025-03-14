@@ -19,16 +19,17 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
       height: 350,
       id: "candles",
       toolbar: {
-        autoSelected: "pan",
+        autoSelected: "zoom",
         show: true,
       },
       zoom: {
         enabled: true,
+        type: "x",
+        autoScaleYaxis: true,
         allowMouseWheelZoom: false,
       },
-      brush: {
-        enabled: true,
-        targets: ["candles", "volume"],
+      animations: {
+        enabled: false, // Disable animations for better performance
       },
     },
     title: {
