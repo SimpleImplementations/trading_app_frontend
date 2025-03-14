@@ -110,7 +110,7 @@ function ExecutionConfigPage() {
               onChange={handleInputChange}
               className="form-control"
             >
-              <option value="ema_crossover">EMA Crossover</option>
+              <option value="ema_crossover">ema_crossover</option>
             </select>
           ) : (
             <input

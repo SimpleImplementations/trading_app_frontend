@@ -42,7 +42,7 @@ function TablesPage() {
     setTableDataError(null);
 
     try {
-      const response = await fetch(`${API_ENDPOINTS.TABLE}/${tableName}`);
+      const response = await fetch(API_ENDPOINTS.TABLE + tableName);
 
       if (!response.ok) {
         throw new Error(`Failed to fetch data for table ${tableName}: ${response.status}`);
