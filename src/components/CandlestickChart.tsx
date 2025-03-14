@@ -21,6 +21,9 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
       toolbar: {
         autoSelected: "zoom",
         show: true,
+        tools: {
+          pan: false, // Disable the pan tool in the toolbar
+        },
       },
       zoom: {
         enabled: true,
