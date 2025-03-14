@@ -18,6 +18,11 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
       height: 160,
       type: "bar",
       id: "volume",
+      brush: {
+        enabled: false,
+        autoScaleYaxis: false,
+      },
+      zoom: { enabled: false },
       selection: {
         enabled: false,
       },
@@ -53,7 +58,7 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
         text: "Volume",
       },
       labels: {
-        show: true,
+        show: false,
         minWidth: 200,
         maxWidth: 200,
         offsetX: 0, // Ensure this is identical between charts

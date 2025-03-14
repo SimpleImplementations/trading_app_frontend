@@ -26,24 +26,21 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
         enabled: true,
         allowMouseWheelZoom: false,
       },
-      brush: {
-        enabled: true,
-        targets: ["candles", "volume"],
-      },
-      selection: {
-        enabled: true,
-        xaxis: {
-          min: data.length > 0 ? new Date(data[0].timestamp).getTime() : undefined,
-          max: data.length > 0 ? new Date(data[data.length - 1].timestamp).getTime() : undefined,
-        },
-      },
+      // brush: {
+      //   enabled: true,
+      //   targets: ["candles", "volume"],
+      // },
+      // selection: {
+      //   enabled: true,
+      //   xaxis: {
+      //     min: data.length > 0 ? new Date(data[0].timestamp).getTime() : undefined,
+      //     max: data.length > 0 ? new Date(data[data.length - 1].timestamp).getTime() : undefined,
+      //   },
+      // },
     },
     title: {
       text: "Candlestick Chart",
       align: "left",
-    },
-    tooltip: {
-      enabled: true,
     },
     xaxis: {
       type: "datetime",
@@ -52,9 +49,6 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
       },
     },
     yaxis: {
-      tooltip: {
-        enabled: true,
-      },
       labels: {
         show: true,
         minWidth: 200,
