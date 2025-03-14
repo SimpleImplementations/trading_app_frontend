@@ -24,10 +24,11 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
       },
       zoom: {
         enabled: true,
+        allowMouseWheelZoom: false,
       },
       brush: {
         enabled: true,
-        target: "volume",
+        targets: ["candles", "volume"],
       },
       selection: {
         enabled: true,
