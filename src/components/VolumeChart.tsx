@@ -18,7 +18,6 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
       height: 160,
       type: "bar",
       id: "volume",
-      group: "market-charts",
       brush: {
         enabled: false,
         autoScaleYaxis: false,
