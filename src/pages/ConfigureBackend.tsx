@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { API_ENDPOINTS } from "../constants/api";
 import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { StrategyType } from "../constants/enums";
 
 function ConfigureBackend() {
   const executionConfig = useExecutionConfig();
@@ -9,15 +10,36 @@ function ConfigureBackend() {
 
   const sendConfiguration = async () => {
     try {
-      const response = await fetch(API_ENDPOINTS.SET_STRATEGY + executionConfig.strategy, {
+      // Format data to exactly match backend Pydantic model
+      const appParameters = {
+        strategy: executionConfig.strategy,
+        strategy_params: {
+          ...executionConfig.strategyParams,
+          // Ensure strategy_type is exactly as expected by the backend
+          strategy_type: executionConfig.strategyParams.strategy_type,
+        },
+      };
+
+      console.log("Sending to backend:", JSON.stringify(appParameters, null, 2));
+
+      const response = await fetch(API_ENDPOINTS.STRATEGY_PARAMS, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(appParameters),
       });
 
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API error (${response.status}): ${errorText}`);
+      }
+
       const data = await response.json();
-      setConfigMessage(data.message);
+      setConfigMessage(data.message || "Configuration sent successfully");
     } catch (error) {
       console.error(error);
-      setConfigMessage("Error setting configuration");
+      setConfigMessage(`Error setting configuration: ${error instanceof Error ? error.message : String(error)}`);
     }
   };
 
@@ -37,13 +59,37 @@ function ConfigureBackend() {
 
   return (
     <div>
-      <div>
-        <button onClick={sendConfiguration}>Send Configuration to backend</button>
-        {configMessage && <p>{configMessage}</p>}
+      <h1>Configure Backend</h1>
+      <div className="config-summary">
+        <h2>Current Configuration</h2>
+        <p>
+          <strong>Strategy:</strong> {executionConfig.strategy}
+        </p>
+        <p>
+          <strong>Broker:</strong> {executionConfig.brokerType}
+        </p>
+
+        {executionConfig.strategy === StrategyType.EMACROSSOVER && (
+          <div className="strategy-params">
+            <p>
+              <strong>Fast Period:</strong> {executionConfig.strategyParams.fast_period}
+            </p>
+            <p>
+              <strong>Slow Period:</strong> {executionConfig.strategyParams.slow_period}
+            </p>
+          </div>
+        )}
       </div>
-      <div>
-        <button onClick={startPolling}>Start Server Polling</button>
-        {pollingMessage && <p>{pollingMessage}</p>}
+
+      <div className="action-buttons">
+        <div>
+          <button onClick={sendConfiguration}>Send Configuration to backend</button>
+          {configMessage && <p className="message">{configMessage}</p>}
+        </div>
+        <div>
+          <button onClick={startPolling}>Start Server Polling</button>
+          {pollingMessage && <p className="message">{pollingMessage}</p>}
+        </div>
       </div>
     </div>
   );

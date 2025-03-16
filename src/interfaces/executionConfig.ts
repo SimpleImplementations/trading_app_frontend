@@ -1,13 +1,23 @@
+// src/interfaces/executionConfig.ts
+import { StrategyType } from "../constants/enums";
+import { StrategyParamsUnion } from "../interfaces/models";
+
 export interface ExecutionConfig {
   readonly apiBaseUrl: string;
   readonly brokerType: string;
   readonly pollingIntervalMs: number;
-  readonly strategy: string;
+  readonly strategy: StrategyType;
+  readonly strategyParams: StrategyParamsUnion;
 }
 
 export const defaultConfig: ExecutionConfig = {
   apiBaseUrl: 'http://localhost:8002/api',
   brokerType: 'mock_broker_always_new_data',
   pollingIntervalMs: 5000,
-  strategy: 'ema_crossover'
+  strategy: StrategyType.EMACROSSOVER,
+  strategyParams: {
+    strategy_type: StrategyType.EMACROSSOVER,
+    fast_period: 12,
+    slow_period: 26
+  }
 };

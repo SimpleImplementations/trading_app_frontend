@@ -10,5 +10,5 @@ export enum OperationType {
 }
 
 export enum StrategyType {
-    EMACROSSOVER = 'EMACROSSOVER',
-  }
+    EMACROSSOVER = "ema_crossover",
+}

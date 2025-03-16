@@ -1,18 +1,18 @@
 import { StrategyType } from "../constants/enums";
 
-interface StrategyParams {
-    strategy_type: StrategyType;
-    }
+export interface StrategyParams {
+    strategy_type: string;
+}
 
-interface EMACrossoverParams extends StrategyParams {
+export interface EMACrossoverParams extends StrategyParams {
     strategy_type: StrategyType.EMACROSSOVER;
     fast_period: number;
     slow_period: number;
-    }
+}
 
-type StrategyParamsUnion = EMACrossoverParams;
+export type StrategyParamsUnion = EMACrossoverParams;
 
-interface AppParameters {
+export interface AppParameters {
     strategy: StrategyType;
     strategy_params: StrategyParamsUnion;
-    }
+}
