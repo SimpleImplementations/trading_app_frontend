@@ -1,4 +1,4 @@
-import { OperationType } from "../constants/models";
+import { OperationType } from "../constants/enums";
 
 export interface DBModel {
   timestamp: string; // ISO format string

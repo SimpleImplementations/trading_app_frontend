@@ -1,7 +1,7 @@
 import CandlestickChart from "../components/CandlestickChart";
 import { useMarketData } from "../hooks/use-market-data";
 import DataPoller from "../components/DataPoller";
-import { MarketData } from "../interfaces/apiModels";
+import { MarketData } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
 import VolumeChart from "../components/VolumeChart";
 

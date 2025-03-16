@@ -1,7 +1,7 @@
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";
 import { useAPIData } from "../hooks/use-api-data";
-import { EMACrossoverData } from "../interfaces/apiModels";
+import { EMACrossoverData } from "../interfaces/dbModels";
 
 function IndicatorPollerPage() {
   const [emaDataArray, handleDataReceived] = useAPIData<EMACrossoverData>({

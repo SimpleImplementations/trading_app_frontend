@@ -1,4 +1,4 @@
-import { MarketData } from "../interfaces/apiModels";
+import { MarketData } from "../interfaces/dbModels";
 import { useMarketData } from "../hooks/use-market-data";
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";

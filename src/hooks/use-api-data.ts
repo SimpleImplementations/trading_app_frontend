@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { DBModel } from "../interfaces/apiModels";
+import { DBModel } from "../interfaces/dbModels";
 
 interface UseAPIDataProps {
   fetchUrl: string;

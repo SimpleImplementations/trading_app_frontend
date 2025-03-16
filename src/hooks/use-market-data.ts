@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MarketData } from "../interfaces/apiModels";
+import { MarketData } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
 
 export const useMarketData = () => {
