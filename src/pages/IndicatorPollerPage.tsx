@@ -1,10 +1,10 @@
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";
 import { useAPIData } from "../hooks/use-api-data";
-import { EMACrossoverData } from "../interfaces/dbModels";
+import { EMAData } from "../interfaces/dbModels";
 
 function IndicatorPollerPage() {
-  const [emaDataArray, handleDataReceived] = useAPIData<EMACrossoverData>({
+  const [emaDataArray, handleDataReceived] = useAPIData<EMAData>({
     fetchUrl: API_ENDPOINTS.INDICATOR_DATA_BATCH,
   });
 
@@ -12,23 +12,27 @@ function IndicatorPollerPage() {
     <div>
       <h1>Data Poller Indicator</h1>
 
-      <DataPoller<EMACrossoverData> fetchEndpoint={API_ENDPOINTS.INDICATOR_DATA} onDataReceived={handleDataReceived} />
+      <DataPoller<EMAData> fetchEndpoint={API_ENDPOINTS.INDICATOR_DATA} onDataReceived={handleDataReceived} />
 
       {emaDataArray.length > 0 ? (
         <table>
           <thead>
             <tr>
-              <th>Timestamp</th>
-              <th>Fast Period</th>
-              <th>operation_type</th>
+              <th>timestamp</th>
+              <th>name</th>
+              <th>period</th>
+              <th>symbol</th>
+              <th>value</th>
             </tr>
           </thead>
           <tbody>
             {emaDataArray.map((item, index) => (
               <tr key={index}>
                 <td>{new Date(item.timestamp).toLocaleString()}</td>
-                <td>{item.fast_period}</td>
-                <td>{item.operation_type}</td>
+                <td>{item.name}</td>
+                <td>{item.period}</td>
+                <td>{item.symbol}</td>
+                <td>{item.value}</td>
               </tr>
             ))}
           </tbody>
