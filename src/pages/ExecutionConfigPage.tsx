@@ -102,19 +102,6 @@ function ExecutionConfigPage() {
 
       <div className="config-form">
         <div className="form-group">
-          <label htmlFor="apiBaseUrl">API Base URL:</label>
-          <input
-            type="text"
-            id="apiBaseUrl"
-            value={currentConfig.apiBaseUrl}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            className="form-control"
-          />
-          <small>The base URL for all API requests</small>
-        </div>
-
-        <div className="form-group">
           <label htmlFor="brokerType">Broker Type:</label>
           {isEditing ? (
             <select

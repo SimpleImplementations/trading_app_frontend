@@ -3,7 +3,6 @@ import { StrategyType } from "../constants/enums";
 import { StrategyParamsUnion } from "../interfaces/models";
 
 export interface ExecutionConfig {
-  readonly apiBaseUrl: string;
   readonly brokerType: string;
   readonly pollingIntervalMs: number;
   readonly strategy: StrategyType;
@@ -11,7 +10,6 @@ export interface ExecutionConfig {
 }
 
 export const defaultConfig: ExecutionConfig = {
-  apiBaseUrl: 'http://localhost:8002/api',
   brokerType: 'mock_broker_always_new_data',
   pollingIntervalMs: 5000,
   strategy: StrategyType.EMACROSSOVER,
