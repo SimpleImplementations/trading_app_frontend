@@ -1,66 +1,13 @@
-import { useState, useCallback } from "react";
-import { API_ENDPOINTS } from "../constants/api";
+import { useState } from "react";
+import { useTables } from "../hooks/useTables";
+import { useTableData } from "../hooks/useTableData";
 
 function TablesPage() {
-  const [tables, setTables] = useState<string[]>([]);
   const [selectedTable, setSelectedTable] = useState<string | null>(null);
-  const [tableData, setTableData] = useState<any[]>([]);
-  const [isLoadingTables, setIsLoadingTables] = useState<boolean>(false);
-  const [isLoadingTableData, setIsLoadingTableData] = useState<boolean>(false);
-  const [tablesError, setTablesError] = useState<string | null>(null);
-  const [tableDataError, setTableDataError] = useState<string | null>(null);
 
-  // Fetch the list of tables
-  const fetchTables = useCallback(async () => {
-    setIsLoadingTables(true);
-    setTablesError(null);
+  const { tables, isLoadingTables, tablesError, fetchTables } = useTables();
+  const { tableData, isLoadingTableData, tableDataError, fetchTableData } = useTableData();
 
-    try {
-      const response = await fetch(API_ENDPOINTS.TABLES);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch tables: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setTables(data);
-    } catch (error) {
-      console.error("Error fetching tables:", error);
-      setTablesError(error instanceof Error ? error.message : String(error));
-      setTables([]);
-    } finally {
-      setIsLoadingTables(false);
-    }
-  }, []);
-
-  // Fetch the data for a specific table
-  const fetchTableData = useCallback(async (tableName: string) => {
-    if (!tableName) return;
-
-    setIsLoadingTableData(true);
-    setTableDataError(null);
-
-    try {
-      const response = await fetch(API_ENDPOINTS.TABLE + tableName);
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch data for table ${tableName}: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setTableData(data);
-    } catch (error) {
-      console.error("Error fetching table data:", error);
-      setTableDataError(error instanceof Error ? error.message : String(error));
-      setTableData([]);
-    } finally {
-      setIsLoadingTableData(false);
-    }
-  }, []);
-
-  // Handle table selection
   const handleTableSelect = (tableName: string) => {
     setSelectedTable(tableName);
     fetchTableData(tableName);
