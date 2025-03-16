@@ -1,16 +1,18 @@
 import { MarketData } from "../interfaces/dbModels";
-import { useMarketData } from "../hooks/use-market-data";
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";
+import { useAPIData } from "../hooks/use-api-data";
 
 function DataPollerPage() {
-  const [marketDataArray, handleDataReceived] = useMarketData();
+  const [marketDataArray, handleMarketDataReceived] = useAPIData<MarketData>({
+    fetchUrl: API_ENDPOINTS.MARKET_DATA_BATCH,
+  });
 
   return (
     <div>
       <h1>Data Poller</h1>
 
-      <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleDataReceived} />
+      <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleMarketDataReceived} />
 
       {marketDataArray.length > 0 ? (
         <table>

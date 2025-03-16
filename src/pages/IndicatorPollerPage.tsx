@@ -4,7 +4,7 @@ import { useAPIData } from "../hooks/use-api-data";
 import { EMAData } from "../interfaces/dbModels";
 
 function IndicatorPollerPage() {
-  const [emaDataArray, handleDataReceived] = useAPIData<EMAData>({
+  const [emaDataArray, handleEmaDataReceived] = useAPIData<EMAData>({
     fetchUrl: API_ENDPOINTS.INDICATOR_DATA_BATCH,
   });
 
@@ -12,7 +12,7 @@ function IndicatorPollerPage() {
     <div>
       <h1>Data Poller Indicator</h1>
 
-      <DataPoller<EMAData> fetchEndpoint={API_ENDPOINTS.INDICATOR_DATA} onDataReceived={handleDataReceived} />
+      <DataPoller<EMAData> fetchEndpoint={API_ENDPOINTS.INDICATOR_DATA} onDataReceived={handleEmaDataReceived} />
 
       {emaDataArray.length > 0 ? (
         <table>
