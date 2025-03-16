@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { defaultConfig, ExecutionConfig } from "../interfaces/executionConfig";
-import { useExecutionConfigUnsafe, useUpdateExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { useBackendConfigUnsafe, useUpdateBackendConfig } from "../contexts/BackendConfigContext";
 import { StrategyType } from "../constants/enums";
 import { EMACrossoverParams } from "../interfaces/models";
+import { BackendConfig, defaultBackendConfig } from "../interfaces/backendConfig";
 
-function ExecutionConfigPage() {
-  const executionConfig = useExecutionConfigUnsafe();
-  const setExecutionConfig = useUpdateExecutionConfig();
+function BackendConfigPage() {
+  const backendConfig = useBackendConfigUnsafe() || defaultBackendConfig;
+  const updateBackendConfig = useUpdateBackendConfig();
 
-  const [componentExecutionConfig, setComponentExecutionConfig] = useState<ExecutionConfig>(
-    executionConfig || defaultConfig,
-  );
+  const [localConfig, setLocalConfig] = useState<BackendConfig>(backendConfig);
   const [isEditing, setIsEditing] = useState(false);
-  const [wasEverEdited, setWasEverEdited] = useState(executionConfig ? true : false);
+  const [wasEverEdited, setWasEverEdited] = useState(useBackendConfigUnsafe() ? true : false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -29,7 +27,7 @@ function ExecutionConfigPage() {
           slow_period: 26,
         };
 
-        setComponentExecutionConfig((prevConfig) => ({
+        setLocalConfig((prevConfig) => ({
           ...prevConfig,
           strategy: strategyType,
           strategyParams: newStrategyParams,
@@ -39,7 +37,7 @@ function ExecutionConfigPage() {
       // Handle strategy params changes
       const paramName = id.split(".")[1];
 
-      setComponentExecutionConfig((prevConfig) => {
+      setLocalConfig((prevConfig) => {
         const updatedParams = { ...prevConfig.strategyParams };
 
         // Type guard to ensure we're working with the right param type
@@ -57,47 +55,46 @@ function ExecutionConfigPage() {
       });
     } else {
       // Handle other regular fields
-      setComponentExecutionConfig((prevConfig) => ({
+      setLocalConfig((prevConfig) => ({
         ...prevConfig,
-        [id]: id === "pollingIntervalMs" ? Number(value) : value,
+        [id]: value,
       }));
     }
   };
 
   const handleSave = () => {
-    setExecutionConfig(componentExecutionConfig);
+    updateBackendConfig(localConfig);
     setWasEverEdited(true);
-    console.log("Saving new configuration:", componentExecutionConfig);
     setIsEditing(false);
   };
 
   const handleCancel = () => {
-    setComponentExecutionConfig(executionConfig || defaultConfig);
+    setLocalConfig(backendConfig);
     setIsEditing(false);
   };
 
   const handleEdit = () => {
     if (wasEverEdited) {
-      alert("Configuration can only be edited once and is now locked.");
+      alert("Backend configuration can only be edited once and is now locked.");
       return;
     }
     setIsEditing(true);
   };
 
-  // Helper to get current config (either from context or local state)
-  const currentConfig = executionConfig || componentExecutionConfig;
+  // Helper to get current config
+  const currentConfig = localConfig;
   const emaParams =
     currentConfig.strategy === StrategyType.EMACROSSOVER ? (currentConfig.strategyParams as EMACrossoverParams) : null;
 
   return (
     <div className="config-page">
-      <h1>Application Configuration</h1>
+      <h1>Backend Configuration</h1>
       <p className="description">
         {isEditing
-          ? "Edit execution configuration settings."
+          ? "Edit backend configuration settings."
           : wasEverEdited
-            ? "Current execution configuration settings (locked)."
-            : "Current execution configuration settings."}
+            ? "Current backend configuration settings (locked)."
+            : "Current backend configuration settings."}
       </p>
 
       <div className="config-form">
@@ -116,20 +113,6 @@ function ExecutionConfigPage() {
             <input type="text" id="brokerType" value={currentConfig.brokerType} readOnly className="form-control" />
           )}
           <small>The type of data broker used for market data</small>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="pollingIntervalMs">Polling Interval (ms):</label>
-          <input
-            type="number"
-            id="pollingIntervalMs"
-            value={currentConfig.pollingIntervalMs}
-            onChange={handleInputChange}
-            readOnly={!isEditing}
-            min="1000"
-            className="form-control"
-          />
-          <small>How frequently to poll for new data (in milliseconds)</small>
         </div>
 
         <div className="form-group">
@@ -201,20 +184,9 @@ function ExecutionConfigPage() {
             </button>
           )}
         </div>
-
-        <div className="config-info">
-          <h3>About Configuration</h3>
-          <p>
-            {isEditing
-              ? "Edit your configuration settings. Changes will be applied after saving. Note: You can only edit the configuration once."
-              : wasEverEdited
-                ? "These settings define the application behavior and are now locked. Configuration can only be edited once."
-                : 'These settings define the application behavior. Click "Edit Configuration" to make changes. You can only edit the configuration once.'}
-          </p>
-        </div>
       </div>
     </div>
   );
 }
 
-export default ExecutionConfigPage;
+export default BackendConfigPage;

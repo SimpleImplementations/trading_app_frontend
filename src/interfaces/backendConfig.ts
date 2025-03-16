@@ -1,17 +1,14 @@
-// src/interfaces/executionConfig.ts
 import { StrategyType } from "../constants/enums";
-import { StrategyParamsUnion } from "../interfaces/models";
+import { StrategyParamsUnion } from "./models";
 
-export interface ExecutionConfig {
+export interface BackendConfig {
   readonly brokerType: string;
-  readonly pollingIntervalMs: number;
   readonly strategy: StrategyType;
   readonly strategyParams: StrategyParamsUnion;
 }
 
-export const defaultConfig: ExecutionConfig = {
+export const defaultBackendConfig: BackendConfig = {
   brokerType: 'mock_broker_always_new_data',
-  pollingIntervalMs: 5000,
   strategy: StrategyType.EMACROSSOVER,
   strategyParams: {
     strategy_type: StrategyType.EMACROSSOVER,

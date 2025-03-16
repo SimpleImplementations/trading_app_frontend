@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { API_ENDPOINTS } from "../constants/api";
-import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { useBackendConfig } from "../contexts/BackendConfigContext";
 import { StrategyType } from "../constants/enums";
 
 function ConfigureBackend() {
-  const executionConfig = useExecutionConfig();
+  const backendConfig = useBackendConfig();
   const [configMessage, setConfigMessage] = useState("");
   const [pollingMessage, setPollingMessage] = useState("");
 
@@ -12,11 +12,11 @@ function ConfigureBackend() {
     try {
       // Format data to exactly match backend Pydantic model
       const appParameters = {
-        strategy: executionConfig.strategy,
+        strategy_type: backendConfig.strategy,
         strategy_params: {
-          ...executionConfig.strategyParams,
+          ...backendConfig.strategyParams,
           // Ensure strategy_type is exactly as expected by the backend
-          strategy_type: executionConfig.strategyParams.strategy_type,
+          strategy_type: backendConfig.strategyParams.strategy_type,
         },
       };
 
@@ -45,7 +45,7 @@ function ConfigureBackend() {
 
   const startPolling = async () => {
     try {
-      const response = await fetch(API_ENDPOINTS.START_SERVER_POLLING + executionConfig.brokerType, {
+      const response = await fetch(API_ENDPOINTS.START_SERVER_POLLING + backendConfig.brokerType, {
         method: "POST",
       });
 
@@ -63,19 +63,19 @@ function ConfigureBackend() {
       <div className="config-summary">
         <h2>Current Configuration</h2>
         <p>
-          <strong>Strategy:</strong> {executionConfig.strategy}
+          <strong>Strategy:</strong> {backendConfig.strategy}
         </p>
         <p>
-          <strong>Broker:</strong> {executionConfig.brokerType}
+          <strong>Broker:</strong> {backendConfig.brokerType}
         </p>
 
-        {executionConfig.strategy === StrategyType.EMACROSSOVER && (
+        {backendConfig.strategy === StrategyType.EMACROSSOVER && (
           <div className="strategy-params">
             <p>
-              <strong>Fast Period:</strong> {executionConfig.strategyParams.fast_period}
+              <strong>Fast Period:</strong> {backendConfig.strategyParams.fast_period}
             </p>
             <p>
-              <strong>Slow Period:</strong> {executionConfig.strategyParams.slow_period}
+              <strong>Slow Period:</strong> {backendConfig.strategyParams.slow_period}
             </p>
           </div>
         )}

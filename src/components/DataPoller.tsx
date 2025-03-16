@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useExecutionConfig } from "../contexts/ExecutionConfigContext";
+import { useFrontendConfig } from "../contexts/FrontendConfigContext";
 
 export interface DataPollerProps<T> {
   fetchEndpoint: string;
@@ -7,7 +7,7 @@ export interface DataPollerProps<T> {
 }
 
 function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
-  const executionConfig = useExecutionConfig();
+  const frontendConfig = useFrontendConfig();
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
   const alreadyCalledOnce = useRef(false);
@@ -39,7 +39,7 @@ function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
 
       pollingIntervalRef.current = window.setInterval(() => {
         fetchData();
-      }, executionConfig.pollingIntervalMs);
+      }, frontendConfig.pollingIntervalMs);
     }
   };
 
@@ -54,7 +54,7 @@ function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
   };
 
   useEffect(() => {
-    // // Only set up polling once, even if effect runs twice, this ocurres because of the strict mode
+    // Only set up polling once, even if effect runs twice, this ocurres because of the strict mode
     if (!alreadyCalledOnce.current) {
       alreadyCalledOnce.current = true;
       fetchData(); // Initial data fetch
@@ -67,6 +67,14 @@ function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
       stopPolling();
     };
   }, []);
+
+  // Add an effect to restart polling when pollingIntervalMs changes
+  useEffect(() => {
+    if (isPolling) {
+      stopPolling();
+      startPolling();
+    }
+  }, [frontendConfig.pollingIntervalMs]);
 
   return null;
 }

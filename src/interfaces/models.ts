@@ -13,6 +13,6 @@ export interface EMACrossoverParams extends StrategyParams {
 export type StrategyParamsUnion = EMACrossoverParams;
 
 export interface AppParameters {
-    strategy: StrategyType;
+    strategy_type: StrategyType;
     strategy_params: StrategyParamsUnion;
 }
