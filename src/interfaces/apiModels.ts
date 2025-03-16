@@ -1,13 +1,34 @@
+import { OperationType } from "../constants/models";
 
-interface DBModel {
+export interface DBModel {
   timestamp: string; // ISO format string
 }
 
 export interface MarketData extends DBModel {
-  symbol: string; // min length 1, max length 10
-  open: number; // greater than 0
-  high: number; // greater than 0
-  low: number; // greater than 0
-  close: number; // greater than 0
-  volume: number; // greater than or equal to 0
+  symbol: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+}
+
+export interface IndicatorData extends DBModel {
+  name: string;
+  symbol: string;
+  value: number;
+}
+
+export interface EMAData extends IndicatorData {
+  period: number;
+}
+
+export interface StrategyData extends DBModel {
+  symbol: string;
+  operation_type: OperationType;
+}
+
+export interface EMACrossoverData extends StrategyData {
+  fast_period: number;
+  slow_period: number;
 }

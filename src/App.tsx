@@ -7,6 +7,7 @@ import ExecutionConfigPage from "./pages/ExecutionConfigPage";
 import { ExecutionConfigProvider } from "./contexts/ExecutionConfigContext";
 import RenderIfConfigured from "./components/RenderIfConfigured";
 import TablesPage from "./pages/TablesPage";
+import IndicatorPollerPage from "./pages/IndicatorPollerPage";
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <nav>
             <Link to="/">Home</Link> |<Link to="/configure-backend">Configure Backend</Link> |
             <Link to="/chart">Candlestick Chart</Link> |<Link to="/data-poller">Data Poller</Link> |
-            <Link to="/execution-config">Execution Config</Link> | <Link to="/tables">Tables</Link>
+            <Link to="/indicator-poller">Indicator Poller</Link> |<Link to="/execution-config">Execution Config</Link> |{" "}
+            <Link to="/tables">Tables</Link>
           </nav>
 
           <div className="content">
@@ -25,6 +27,7 @@ function App() {
               <Route path="/configure-backend" element={<RenderIfConfigured children={<ConfigureBackend />} />} />
               <Route path="/chart" element={<RenderIfConfigured children={<ChartPage />} />} />
               <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
+              <Route path="/indicator-poller" element={<RenderIfConfigured children={<IndicatorPollerPage />} />} />
               <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />
               <Route path="/execution-config" element={<ExecutionConfigPage />} />
             </Routes>
