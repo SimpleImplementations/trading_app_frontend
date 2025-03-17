@@ -20,7 +20,7 @@ function ChartPage() {
   const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
 
   const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
-    fetchUrl: API_ENDPOINTS.MARKET_DATA_BATCH,
+    fetchUrl: API_ENDPOINTS.STRATEGY_SET_BATCH,
   });
 
   return (

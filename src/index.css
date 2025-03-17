@@ -398,3 +398,103 @@ tr:nth-child(even) {
   text-align: center;
   border-radius: 8px;
 }
+/* Dark mode theme for Strategy Chart */
+.strategy-chart {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-top: 16px; /* Add spacing between charts if needed */
+}
+
+/* ApexCharts specific overrides */
+.strategy-chart .apexcharts-canvas {
+  background-color: #1a1a1a !important;
+}
+
+/* Text colors */
+.strategy-chart .apexcharts-title-text,
+.strategy-chart .apexcharts-legend-text,
+.strategy-chart .apexcharts-yaxis-label,
+.strategy-chart .apexcharts-xaxis-label,
+.strategy-chart .apexcharts-yaxis-title {
+  fill: #f0f0f0 !important;
+}
+
+/* Grid lines */
+.strategy-chart .apexcharts-grid line {
+  stroke: #333333 !important;
+}
+
+/* Tooltip styling */
+.strategy-chart .apexcharts-tooltip {
+  background-color: #2c2c2c !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #555555 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.strategy-chart .apexcharts-tooltip-title {
+  background-color: #3a3a3a !important;
+  border-bottom: 1px solid #555555 !important;
+}
+
+/* Selection brush area */
+.strategy-chart .apexcharts-selection-rect {
+  fill: #4d4d4d;
+  stroke: #666666;
+  opacity: 0.3;
+}
+
+/* Zoom reset button */
+.strategy-chart .apexcharts-zoom-icon,
+.strategy-chart .apexcharts-reset-icon,
+.strategy-chart .apexcharts-menu-icon {
+  fill: #f0f0f0 !important;
+}
+
+/* Toolbar and menu */
+.strategy-chart .apexcharts-toolbar {
+  background-color: #2c2c2c !important;
+  border-radius: 4px;
+}
+
+.strategy-chart .apexcharts-menu {
+  background-color: #2c2c2c !important;
+  border: 1px solid #555555 !important;
+}
+
+.strategy-chart .apexcharts-menu-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Loading state */
+.strategy-chart .apexcharts-loading {
+  background-color: rgba(26, 26, 26, 0.7) !important;
+}
+
+.strategy-chart .apexcharts-loading .apexcharts-loading-text {
+  color: #f0f0f0 !important;
+}
+
+/* No data message */
+.strategy-chart > div:not(.apexcharts-chart) {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Legend styling */
+.strategy-chart .apexcharts-legend {
+  background-color: #1a1a1a !important;
+  border: none !important;
+  padding: 4px 8px !important;
+}
+
+/* Marker colors - match with the colors in the component */
+.strategy-chart .apexcharts-marker {
+  stroke-width: 0 !important;
+}
