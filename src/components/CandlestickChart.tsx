@@ -53,6 +53,9 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
         offsetX: 0, // Ensure this is identical between charts
         align: "left", // Ensure label alignment is identical
         padding: 4, // Set explicit padding and keep identical
+        formatter: (value) => {
+          return parseFloat(value.toFixed(2)).toString();
+        },
       },
       axisBorder: {
         offsetX: 0, // Ensure axis border offset is identical

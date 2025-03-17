@@ -64,12 +64,22 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
         text: "Volume",
       },
       labels: {
-        show: false,
+        show: true,
         minWidth: 200,
         maxWidth: 200,
         offsetX: 0, // Ensure this is identical between charts
         align: "left", // Ensure label alignment is identical
         padding: 4, // Set explicit padding and keep identical
+        formatter: (value) => {
+          // Format large numbers with abbreviations (K, M)
+          if (value >= 1000000) {
+            return (value / 1000000).toFixed(1) + "M";
+          } else if (value >= 1000) {
+            return (value / 1000).toFixed(1) + "K";
+          } else {
+            return value.toString();
+          }
+        },
       },
       axisBorder: {
         offsetX: 0, // Ensure axis border offset is identical
