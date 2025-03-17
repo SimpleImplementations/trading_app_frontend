@@ -39,10 +39,8 @@ function ChartPage() {
       {/* Render indicator charts */}
       {Object.keys(indicatorDataByType).length > 0 && (
         <div>
-          <h1>Indicator Charts</h1>
           {Object.entries(indicatorDataByType).map(([indicatorName, dataArray]) => (
-            <div key={indicatorName} style={{ marginBottom: "20px" }}>
-              <h2>{indicatorName}</h2>
+            <div key={indicatorName}>
               <IndicatorChart data={dataArray} />
             </div>
           ))}

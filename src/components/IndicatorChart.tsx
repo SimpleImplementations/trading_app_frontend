@@ -17,27 +17,26 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
     chart: {
       type: "line",
       height: 350,
+      id: "indicators",
       toolbar: {
+        autoSelected: "zoom",
         show: true,
         tools: {
-          download: true,
-          selection: true,
-          zoom: true,
-          zoomin: true,
-          zoomout: true,
-          pan: false,
+          pan: false, // Disable the pan tool in the toolbar
         },
       },
       zoom: {
         enabled: true,
         type: "x",
+        autoScaleYaxis: true,
+        allowMouseWheelZoom: false,
       },
       animations: {
-        enabled: false,
+        enabled: false, // Disable animations for better performance
       },
     },
     title: {
-      text: "Indicator Chart",
+      text: data[0].name,
       align: "left",
     },
     stroke: {
@@ -52,7 +51,19 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
     },
     yaxis: {
       labels: {
+        show: true,
+        minWidth: 200,
+        maxWidth: 200,
+        offsetX: 0, // Ensure this is identical between charts
+        align: "left", // Ensure label alignment is identical
+        padding: 4, // Set explicit padding and keep identical
         formatter: (value) => value.toFixed(2),
+      },
+      axisBorder: {
+        offsetX: 0, // Ensure axis border offset is identical
+      },
+      title: {
+        text: data[0].name,
       },
     },
     tooltip: {
@@ -73,7 +84,7 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
     <div className="indicator-chart">
       <ReactApexChart
         options={options}
-        series={[{ name: data[0]?.name || "Indicator", data: seriesData }]}
+        series={[{ name: data[0].name, data: seriesData }]}
         type="line"
         height={350}
         width="100%"

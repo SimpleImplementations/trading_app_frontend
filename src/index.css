@@ -309,3 +309,92 @@ tr:nth-child(even) {
   text-align: center;
   border-radius: 8px;
 }
+
+/* Dark mode theme for Indicator Chart */
+.indicator-chart {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-top: 16px; /* Add spacing between charts if needed */
+}
+
+/* ApexCharts specific overrides */
+.indicator-chart .apexcharts-canvas {
+  background-color: #1a1a1a !important;
+}
+
+/* Text colors */
+.indicator-chart .apexcharts-title-text,
+.indicator-chart .apexcharts-legend-text,
+.indicator-chart .apexcharts-yaxis-label,
+.indicator-chart .apexcharts-xaxis-label,
+.indicator-chart .apexcharts-yaxis-title {
+  fill: #f0f0f0 !important;
+}
+
+/* Grid lines */
+.indicator-chart .apexcharts-grid line {
+  stroke: #333333 !important;
+}
+
+/* Tooltip styling */
+.indicator-chart .apexcharts-tooltip {
+  background-color: #2c2c2c !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #555555 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.indicator-chart .apexcharts-tooltip-title {
+  background-color: #3a3a3a !important;
+  border-bottom: 1px solid #555555 !important;
+}
+
+/* Selection brush area */
+.indicator-chart .apexcharts-selection-rect {
+  fill: #4d4d4d;
+  stroke: #666666;
+  opacity: 0.3;
+}
+
+/* Zoom reset button */
+.indicator-chart .apexcharts-zoom-icon,
+.indicator-chart .apexcharts-reset-icon,
+.indicator-chart .apexcharts-menu-icon {
+  fill: #f0f0f0 !important;
+}
+
+/* Toolbar and menu */
+.indicator-chart .apexcharts-toolbar {
+  background-color: #2c2c2c !important;
+  border-radius: 4px;
+}
+
+.indicator-chart .apexcharts-menu {
+  background-color: #2c2c2c !important;
+  border: 1px solid #555555 !important;
+}
+
+.indicator-chart .apexcharts-menu-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Loading state */
+.indicator-chart .apexcharts-loading {
+  background-color: rgba(26, 26, 26, 0.7) !important;
+}
+
+.indicator-chart .apexcharts-loading .apexcharts-loading-text {
+  color: #f0f0f0 !important;
+}
+
+/* No data message */
+.indicator-chart > div:not(.apexcharts-chart) {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
