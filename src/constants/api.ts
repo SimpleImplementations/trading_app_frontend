@@ -11,4 +11,7 @@ export const API_ENDPOINTS = {
 
   INDICATOR_DATA: `${BACKEND_API_BASE_URL}/indicator/ema_data`,
   INDICATOR_DATA_BATCH: `${BACKEND_API_BASE_URL}/batch/indicator/ema_data`,
+
+  INDICATORS_SET: `${BACKEND_API_BASE_URL}/indicator/indicators_set`,
+  INDICATORS_SET_BATCH: `${BACKEND_API_BASE_URL}/batch/indicator/indicators_set`,
 } as const;

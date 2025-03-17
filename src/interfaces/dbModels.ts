@@ -19,6 +19,10 @@ export interface IndicatorData extends DBModel {
   value: number;
 }
 
+export interface IndicatorsSet extends DBModel {
+  indicators_dict: { [key: string]: IndicatorData };
+}
+
 export interface EMAData extends IndicatorData {
   period: number;
 }
