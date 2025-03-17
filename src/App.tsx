@@ -1,6 +1,6 @@
 // src/App.tsx
 import { BrowserRouter, Link, Route, Routes } from "react-router";
-import ConfigureBackend from "./pages/ConfigureBackend";
+import ConfigureBackend from "./pages/ConfigureBackendPage";
 import ChartPage from "./pages/ChartPage";
 import HomePage from "./pages/HomePage";
 import DataPollerPage from "./pages/DataPollerPage";
