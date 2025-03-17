@@ -14,4 +14,7 @@ export const API_ENDPOINTS = {
 
   INDICATORS_SET: `${BACKEND_API_BASE_URL}/indicator/indicators_set`,
   INDICATORS_SET_BATCH: `${BACKEND_API_BASE_URL}/batch/indicator/indicators_set`,
+
+  STRATEGY_SET: `${BACKEND_API_BASE_URL}/strategy/base_strategy`,
+  STRATEGY_SET_BATCH: `${BACKEND_API_BASE_URL}/batch/strategy/base_strategy`,
 } as const;

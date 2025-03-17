@@ -1,11 +1,12 @@
 import CandlestickChart from "../components/CandlestickChart";
 import DataPoller from "../components/DataPoller";
 import IndicatorChart from "../components/IndicatorChart";
-import { MarketData, IndicatorsSet } from "../interfaces/dbModels";
+import { MarketData, IndicatorsSet, StrategyData } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
 import VolumeChart from "../components/VolumeChart";
 import { useAPIData } from "../hooks/useApiData";
 import { useIndicatorProcessing } from "../hooks/useIndicatorProcessing";
+import StrategyChart from "../components/StrategyChart";
 
 function ChartPage() {
   const [marketDataArray, handleMarketDataReceived] = useAPIData<MarketData>({
@@ -18,6 +19,10 @@ function ChartPage() {
 
   const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
 
+  const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
+    fetchUrl: API_ENDPOINTS.MARKET_DATA_BATCH,
+  });
+
   return (
     <div>
       <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleMarketDataReceived} />
@@ -25,6 +30,11 @@ function ChartPage() {
       <DataPoller<IndicatorsSet>
         fetchEndpoint={API_ENDPOINTS.INDICATORS_SET}
         onDataReceived={handleIndicatorSetReceived}
+      />
+
+      <DataPoller<StrategyData>
+        fetchEndpoint={API_ENDPOINTS.STRATEGY_SET}
+        onDataReceived={handleStrategyDataReceived}
       />
 
       <div>
@@ -46,6 +56,10 @@ function ChartPage() {
           ))}
         </div>
       )}
+
+      <div>
+        <StrategyChart data={strategyDataArray} />
+      </div>
     </div>
   );
 }
