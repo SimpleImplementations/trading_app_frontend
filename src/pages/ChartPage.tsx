@@ -4,7 +4,7 @@ import IndicatorChart from "../components/IndicatorChart";
 import { MarketData, IndicatorsSet } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
 import VolumeChart from "../components/VolumeChart";
-import { useAPIData } from "../hooks/use-api-data";
+import { useAPIData } from "../hooks/useApiData";
 import { useIndicatorProcessing } from "../hooks/useIndicatorProcessing";
 
 function ChartPage() {

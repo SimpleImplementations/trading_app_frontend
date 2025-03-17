@@ -1,7 +1,7 @@
 import { MarketData } from "../interfaces/dbModels";
 import DataPoller from "../components/DataPoller";
 import { API_ENDPOINTS } from "../constants/api";
-import { useAPIData } from "../hooks/use-api-data";
+import { useAPIData } from "../hooks/useApiData";
 
 function DataPollerPage() {
   const [marketDataArray, handleMarketDataReceived] = useAPIData<MarketData>({
