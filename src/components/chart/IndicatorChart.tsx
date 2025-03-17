@@ -1,7 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { IndicatorData } from "../interfaces/dbModels";
+import { IndicatorData } from "../../interfaces/dbModels";
 
 interface IndicatorChartProps {
   data: IndicatorData[];

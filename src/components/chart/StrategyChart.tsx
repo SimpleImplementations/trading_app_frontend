@@ -1,8 +1,8 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import { StrategyData } from "../interfaces/dbModels";
-import { OperationType } from "../constants/enums";
+import { StrategyData } from "../../interfaces/dbModels";
+import { OperationType } from "../../constants/enums";
 
 interface StrategyChartProps {
   data: StrategyData[];

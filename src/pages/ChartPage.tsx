@@ -1,12 +1,12 @@
-import CandlestickChart from "../components/CandlestickChart";
+import CandlestickChart from "../components/chart/CandlestickChart";
 import DataPoller from "../components/DataPoller";
-import IndicatorChart from "../components/IndicatorChart";
+import IndicatorChart from "../components/chart/IndicatorChart";
 import { MarketData, IndicatorsSet, StrategyData } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
-import VolumeChart from "../components/VolumeChart";
+import VolumeChart from "../components/chart/VolumeChart";
 import { useAPIData } from "../hooks/useApiData";
 import { useIndicatorProcessing } from "../hooks/useIndicatorProcessing";
-import StrategyChart from "../components/StrategyChart";
+import StrategyChart from "../components/chart/StrategyChart";
 
 function ChartPage() {
   const [marketDataArray, handleMarketDataReceived] = useAPIData<MarketData>({
