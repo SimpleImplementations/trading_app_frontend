@@ -1,4 +1,3 @@
-// src/App.tsx
 import { BrowserRouter, Link, Route, Routes } from "react-router";
 import ConfigureBackend from "./pages/ConfigureBackendPage";
 import ChartPage from "./pages/ChartPage";
@@ -11,6 +10,7 @@ import TablesPage from "./pages/TablesPage";
 import IndicatorPollerPage from "./pages/IndicatorPollerPage";
 import { BackendConfigProvider } from "./contexts/BackendConfigContext";
 import BackendConfigPage from "./pages/BackendConfigPage";
+import StrategyChartPage from "./pages/StrategyChartPage";
 
 function App() {
   return (
@@ -21,8 +21,9 @@ function App() {
             <nav>
               <Link to="/">Home</Link> |<Link to="/configure-backend">Configure Backend</Link> |
               <Link to="/frontend-config">Frontend Config</Link> |<Link to="/backend-config">Backend Config</Link> |
-              <Link to="/chart">Candlestick Chart</Link> |<Link to="/data-poller">Data Poller</Link> |
-              <Link to="/indicator-poller">Indicator Poller</Link> |<Link to="/tables">Tables</Link>
+              <Link to="/chart">Candlestick Chart</Link> |<Link to="/strategy-analysis">Strategy Analysis</Link> |
+              <Link to="/data-poller">Data Poller</Link> |<Link to="/indicator-poller">Indicator Poller</Link> |
+              <Link to="/tables">Tables</Link>
             </nav>
 
             <div className="content">
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/frontend-config" element={<FrontendConfigPage />} />
                 <Route path="/backend-config" element={<BackendConfigPage />} />
                 <Route path="/chart" element={<RenderIfConfigured children={<ChartPage />} />} />
+                <Route path="/strategy-analysis" element={<RenderIfConfigured children={<StrategyChartPage />} />} />
                 <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
                 <Route path="/indicator-poller" element={<RenderIfConfigured children={<IndicatorPollerPage />} />} />
                 <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />

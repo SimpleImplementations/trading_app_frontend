@@ -139,18 +139,6 @@ const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
           shape: "diamond", // CLOSE_SHORT
           size: 8,
         },
-        {
-          seriesIndex: 4,
-          dataPointIndex: -1,
-          shape: "cross", // CLOSE_LONG_OPEN_SHORT
-          size: 10,
-        },
-        {
-          seriesIndex: 5,
-          dataPointIndex: -1,
-          shape: "plus", // CLOSE_SHORT_OPEN_LONG
-          size: 10,
-        },
       ],
     },
     colors: [
@@ -159,8 +147,6 @@ const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
       "#FF4560", // OPEN_SHORT - Red
       "#008FFB", // CLOSE_LONG - Blue
       "#FEB019", // CLOSE_SHORT - Orange
-      "#775DD0", // CLOSE_LONG_OPEN_SHORT - Purple
-      "#00D9E9", // CLOSE_SHORT_OPEN_LONG - Cyan
     ],
     legend: {
       show: true,

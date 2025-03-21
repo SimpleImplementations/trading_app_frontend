@@ -4,8 +4,6 @@ export enum OperationType {
     CLOSE_SHORT = "close_short",
     CLOSE_LONG = "close_long",
 
-    CLOSE_LONG_OPEN_SHORT = "close_long_open_short",
-    CLOSE_SHORT_OPEN_LONG = "close_short_open_long",
     NONE = ""
 }
 
