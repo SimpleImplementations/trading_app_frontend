@@ -1,12 +1,13 @@
 import CandlestickChart from "../components/chart/CandlestickChart";
 import DataPoller from "../components/DataPoller";
 import IndicatorChart from "../components/chart/IndicatorChart";
-import { MarketData, IndicatorsSet, StrategyData } from "../interfaces/dbModels";
+import { MarketData, IndicatorsSet, StrategyData, PortfolioStatus } from "../interfaces/dbModels";
 import { API_ENDPOINTS } from "../constants/api";
 import VolumeChart from "../components/chart/VolumeChart";
 import { useAPIData } from "../hooks/useApiData";
 import { useIndicatorProcessing } from "../hooks/useIndicatorProcessing";
 import StrategyChart from "../components/chart/StrategyChart";
+import PortfolioChart from "../components/chart/PortfolioChart";
 
 function ChartPage() {
   const [marketDataArray, handleMarketDataReceived] = useAPIData<MarketData>({
@@ -20,7 +21,11 @@ function ChartPage() {
   const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
 
   const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
-    fetchUrl: API_ENDPOINTS.STRATEGY_SET_BATCH,
+    fetchUrl: API_ENDPOINTS.STRATEGY_BATCH,
+  });
+
+  const [portfolioDataArray, handlePortfolioDataReceived] = useAPIData<PortfolioStatus>({
+    fetchUrl: API_ENDPOINTS.PORTFOLIO_STATUS_BATCH,
   });
 
   return (
@@ -32,9 +37,11 @@ function ChartPage() {
         onDataReceived={handleIndicatorSetReceived}
       />
 
-      <DataPoller<StrategyData>
-        fetchEndpoint={API_ENDPOINTS.STRATEGY_SET}
-        onDataReceived={handleStrategyDataReceived}
+      <DataPoller<StrategyData> fetchEndpoint={API_ENDPOINTS.STRATEGY} onDataReceived={handleStrategyDataReceived} />
+
+      <DataPoller<PortfolioStatus>
+        fetchEndpoint={API_ENDPOINTS.PORTFOLIO_STATUS}
+        onDataReceived={handlePortfolioDataReceived}
       />
 
       <div>
@@ -59,6 +66,10 @@ function ChartPage() {
 
       <div>
         <StrategyChart data={strategyDataArray} />
+      </div>
+
+      <div>
+        <PortfolioChart data={portfolioDataArray} />
       </div>
     </div>
   );

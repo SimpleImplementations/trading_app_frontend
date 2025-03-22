@@ -36,3 +36,11 @@ export interface EMACrossoverData extends StrategyData {
   fast_period: number;
   slow_period: number;
 }
+
+export interface PortfolioStatus extends DBModel {
+  cash: number;
+  position_value: number;
+  portfolio_value: number;
+  unrealized_pnl: number;
+  realized_pnl: number;
+}

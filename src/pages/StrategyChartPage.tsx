@@ -21,7 +21,7 @@ function StrategyChartPage() {
   const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
 
   const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
-    fetchUrl: API_ENDPOINTS.STRATEGY_SET_BATCH,
+    fetchUrl: API_ENDPOINTS.STRATEGY_BATCH,
   });
 
   return (
@@ -31,10 +31,7 @@ function StrategyChartPage() {
         fetchEndpoint={API_ENDPOINTS.INDICATORS_SET}
         onDataReceived={handleIndicatorSetReceived}
       />
-      <DataPoller<StrategyData>
-        fetchEndpoint={API_ENDPOINTS.STRATEGY_SET}
-        onDataReceived={handleStrategyDataReceived}
-      />
+      <DataPoller<StrategyData> fetchEndpoint={API_ENDPOINTS.STRATEGY} onDataReceived={handleStrategyDataReceived} />
 
       <div>
         <div>
