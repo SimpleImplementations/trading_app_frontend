@@ -24,6 +24,11 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     y: item.portfolio_value,
   }));
 
+  const portfolioBookValueData = data.map((item) => ({
+    x: new Date(item.timestamp),
+    y: item.portfolio_book_value,
+  }));
+
   const realizedPnlValueData = data.map((item) => ({
     x: new Date(item.timestamp),
     y: item.realized_pnl,
@@ -68,7 +73,7 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
       text: "Portfolio Status",
       align: "left",
     },
-    colors: ["#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0"], // Green, Blue, Orange , Coral, Purple
+    colors: ["#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0", "#26C6DA"], // Green, Blue, Orange , Coral, Purple, Cyan
     stroke: {
       curve: "straight",
       width: 2,
@@ -131,6 +136,10 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     {
       name: "Portfolio Value",
       data: portfolioValueData,
+    },
+    {
+      name: "Portfolio Book Value",
+      data: portfolioBookValueData,
     },
     {
       name: "Realized PNL",

@@ -41,6 +41,7 @@ export interface PortfolioStatus extends DBModel {
   cash: number;
   position_value: number;
   portfolio_value: number;
+  portfolio_book_value: number;
   unrealized_pnl: number;
   realized_pnl: number;
 }
