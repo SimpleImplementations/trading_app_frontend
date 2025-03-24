@@ -9,28 +9,52 @@ interface StrategyChartProps {
 }
 
 const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
-  // Filter out NONE operations as they don't need markers
-  const filteredData = data.filter((item) => item.operation_type !== OperationType.NONE);
+  const operationTypes = Object.values(OperationType);
 
-  // Create series for each operation type
-  const operationTypes = Object.values(OperationType).filter((op) => op !== OperationType.NONE);
+  interface SeriesItem {
+    name: string;
+    data: Array<{
+      x: number;
+      y: number;
+      operation: string;
+    }>;
+    color: string;
+  }
 
-  const series = operationTypes
-    .map((opType) => {
-      const filteredPoints = filteredData
-        .filter((item) => item.operation_type === opType)
-        .map((item) => ({
-          x: new Date(item.timestamp).getTime(),
-          y: 0, // We'll adjust this with the yaxis.labels.formatter
-          operation: item.operation_type,
-        }));
+  const series: SeriesItem[] = [];
 
-      return {
+  const operationConfig = {
+    [OperationType.OPEN_LONG]: { color: "rgb(0, 227, 150)", shape: "circle" as const, size: 8 },
+    [OperationType.OPEN_SHORT]: { color: "rgb(255, 69, 96)", shape: "square" as const, size: 8 },
+    [OperationType.CLOSE_LONG]: { color: "rgb(0, 143, 251)", shape: "triangle" as const, size: 8 },
+    [OperationType.CLOSE_SHORT]: { color: "rgb(254, 176, 25)", shape: "diamond" as const, size: 8 },
+    [OperationType.NONE]: { color: "rgba(150, 150, 150, 0)", shape: "circle" as const, size: 4 },
+  };
+
+  operationTypes.forEach((opType) => {
+    const filteredPoints = data
+      .filter((item) => item.operation_type === opType)
+      .map((item) => ({
+        x: new Date(item.timestamp).getTime(),
+        y: 0,
+        operation: item.operation_type,
+      }));
+
+    // Only add series if it has data points
+    if (filteredPoints.length > 0) {
+      series.push({
         name: opType,
         data: filteredPoints,
-      };
-    })
-    .filter((series) => series.data.length > 0); // Only include series with data
+        color: operationConfig[opType].color,
+      });
+    }
+  });
+
+  // Find indices for each operation type in the series array
+  const seriesIndices: Record<string, number> = {};
+  series.forEach((s, index) => {
+    seriesIndices[s.name] = index;
+  });
 
   const options: ApexOptions = {
     chart: {
@@ -102,11 +126,6 @@ const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
       marker: {
         show: true,
       },
-      fixed: {
-        enabled: false,
-        position: "topRight",
-        offsetY: 10,
-      },
     },
     markers: {
       size: 8,
@@ -114,47 +133,22 @@ const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
       hover: {
         size: 10,
       },
-      discrete: [
-        {
-          seriesIndex: 0,
+      discrete: Object.entries(operationConfig)
+        .filter(([opType]) => seriesIndices[opType] !== undefined)
+        .map(([opType, config]) => ({
+          seriesIndex: seriesIndices[opType],
           dataPointIndex: -1,
-          shape: "circle", // OPEN_LONG
-          size: 8,
-        },
-        {
-          seriesIndex: 1,
-          dataPointIndex: -1,
-          shape: "square", // OPEN_SHORT
-          size: 8,
-        },
-        {
-          seriesIndex: 2,
-          dataPointIndex: -1,
-          shape: "triangle", // CLOSE_LONG
-          size: 8,
-        },
-        {
-          seriesIndex: 3,
-          dataPointIndex: -1,
-          shape: "diamond", // CLOSE_SHORT
-          size: 8,
-        },
-      ],
+          shape: config.shape,
+          size: config.size,
+        })),
     },
-    colors: [
-      // Colors for different operation types
-      "#00E396", // OPEN_LONG - Green
-      "#FF4560", // OPEN_SHORT - Red
-      "#008FFB", // CLOSE_LONG - Blue
-      "#FEB019", // CLOSE_SHORT - Orange
-    ],
     legend: {
       show: true,
       position: "top",
     },
   };
 
-  if (data.length === 0 || filteredData.length === 0) {
+  if (data.length === 0) {
     return <div>No strategy signals available</div>;
   }
 
