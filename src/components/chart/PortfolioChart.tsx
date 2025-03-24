@@ -24,6 +24,16 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     y: item.portfolio_value,
   }));
 
+  const realizedPnlValueData = data.map((item) => ({
+    x: new Date(item.timestamp),
+    y: item.realized_pnl,
+  }));
+
+  const unrealizedPnlValueData = data.map((item) => ({
+    x: new Date(item.timestamp),
+    y: item.unrealized_pnl,
+  }));
+
   const options: ApexOptions = {
     chart: {
       type: "line",
@@ -32,20 +42,25 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
       toolbar: {
         autoSelected: "zoom",
         show: true,
+        tools: {
+          pan: false,
+        },
       },
       zoom: {
         enabled: true,
         type: "x",
         autoScaleYaxis: true,
+        allowMouseWheelZoom: false,
       },
       animations: {
-        enabled: false, // Disable animations for better performance
+        enabled: false,
       },
       events: {
         mounted: function (chart) {
-          // Hide first two series on initial render
           chart.hideSeries("Cash");
           chart.hideSeries("Position Value");
+          chart.hideSeries("Realized PNL");
+          chart.hideSeries("Unrealized PNL");
         },
       },
     },
@@ -53,10 +68,10 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
       text: "Portfolio Status",
       align: "left",
     },
-    colors: ["#00E396", "#008FFB", "#FEB019"],
+    colors: ["#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0"], // Green, Blue, Orange , Coral, Purple
     stroke: {
       curve: "straight",
-      width: [2, 2, 2],
+      width: 2,
     },
     xaxis: {
       type: "datetime",
@@ -66,7 +81,16 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     },
     yaxis: {
       labels: {
+        show: true,
+        minWidth: 200,
+        maxWidth: 200,
+        offsetX: 0,
+        align: "left",
+        padding: 4,
         formatter: (value) => value.toFixed(2),
+      },
+      axisBorder: {
+        offsetX: 0,
       },
       title: {
         text: "Value",
@@ -85,23 +109,36 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     dataLabels: {
       enabled: false,
     },
+    grid: {
+      borderColor: "#333333",
+      xaxis: {
+        lines: {
+          show: true,
+        },
+      },
+    },
   };
 
   const series = [
     {
       name: "Cash",
       data: cashData,
-      visible: false,
     },
     {
       name: "Position Value",
       data: positionValueData,
-      visible: false,
     },
     {
       name: "Portfolio Value",
       data: portfolioValueData,
-      visible: true,
+    },
+    {
+      name: "Realized PNL",
+      data: realizedPnlValueData,
+    },
+    {
+      name: "Unrealized PNL",
+      data: unrealizedPnlValueData,
     },
   ];
 
