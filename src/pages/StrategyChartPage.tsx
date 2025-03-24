@@ -27,6 +27,7 @@ function StrategyChartPage() {
 
   const [portfolioDataArray, handlePortfolioDataReceived] = useAPIData<PortfolioStatus>({
     fetchUrl: API_ENDPOINTS.PORTFOLIO_STATUS_BATCH,
+    dedupTimestamps: true,
   });
 
   return (

@@ -6,6 +6,7 @@ import { PortfolioStatus } from "../interfaces/dbModels";
 function StrategyPollerPage() {
   const [portfolioDataArray, handlePortfolioDataReceived] = useAPIData<PortfolioStatus>({
     fetchUrl: API_ENDPOINTS.PORTFOLIO_STATUS_BATCH,
+    dedupTimestamps: true,
   });
 
   return (
@@ -21,6 +22,7 @@ function StrategyPollerPage() {
           <thead>
             <tr>
               <th>id</th>
+              <th>timestamp</th>
               <th>cash</th>
               <th>position_value</th>
               <th>portfolio_value</th>
@@ -36,6 +38,7 @@ function StrategyPollerPage() {
                 <td>{new Date(item.timestamp).toLocaleString()}</td>
                 <td>{item.cash}</td>
                 <td>{item.position_value}</td>
+                <td>{item.portfolio_value}</td>
                 <td>{item.portfolio_book_value}</td>
                 <td>{item.unrealized_pnl}</td>
                 <td>{item.realized_pnl}</td>

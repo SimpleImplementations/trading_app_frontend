@@ -4,11 +4,14 @@ import { DBModel } from "../interfaces/dbModels";
 interface UseAPIDataProps {
   fetchUrl: string;
   initialFetch?: boolean;
+  dedupTimestamps?: boolean;
 }
 
 export const useAPIData = <T extends DBModel>({
   fetchUrl,
   initialFetch = true,
+  dedupTimestamps=false
+
 }: UseAPIDataProps) => {
   const [dataArray, setDataArray] = useState<T[]>([]);
   const alreadyCalledOnce = useRef(false);
@@ -18,7 +21,18 @@ export const useAPIData = <T extends DBModel>({
       if (Array.isArray(data)) {
         // For batch
         const newData = [...prevData, ...data];
-        return newData.sort((a, b) => {return a.id - b.id;});
+        newData.sort((a, b) => {return a.id - b.id;});
+
+        if (dedupTimestamps) {
+          const uniqueTimestamps = new Map<string, T>();
+
+          for (const item of newData) {
+            uniqueTimestamps.set(item.timestamp, item); // the set overrides with the new one
+          }
+          return Array.from(uniqueTimestamps.values());
+        }
+        return newData
+        
       } else {
         // For single data points
 
@@ -31,16 +45,12 @@ export const useAPIData = <T extends DBModel>({
         }
 
         if (prevData.length > 0) {
-          // If the new point is newer than our most recent point, just append it
-          if (data.id >= prevData[prevData.length - 1].id) {
+          const lastElement = prevData[prevData.length - 1];
+          if (dedupTimestamps && lastElement.timestamp === data.timestamp) {
+            prevData.pop()
             return [...prevData, data];
           }
-          // Otherwise, it's an out-of-order point and we need to sort
-          else {
-            return [...prevData, data].sort((a, b) => {
-              return a.id - b.id;
-            });
-          }
+          return [...prevData, data];
         }
         // If this is our first data point, just return it
         return [...prevData, data];
