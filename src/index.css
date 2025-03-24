@@ -134,456 +134,124 @@ tr:nth-child(even) {
   background-color: #2a2a2a;
 }
 
-/* Dark mode theme for Candlestick Chart */
-.candlestick-chart {
+/* Dark mode theme for all charts */
+.chart-container {
   background-color: #1a1a1a;
   color: #f0f0f0;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  margin-top: 16px;
 }
 
-/* ApexCharts specific overrides */
-.candlestick-chart .apexcharts-canvas {
+/* ApexCharts specific dark mode overrides */
+.chart-container .apexcharts-canvas {
   background-color: #1a1a1a !important;
 }
 
 /* Text colors */
-.candlestick-chart .apexcharts-title-text,
-.candlestick-chart .apexcharts-legend-text,
-.candlestick-chart .apexcharts-yaxis-label,
-.candlestick-chart .apexcharts-xaxis-label {
+.chart-container .apexcharts-title-text,
+.chart-container .apexcharts-legend-text,
+.chart-container .apexcharts-yaxis-label,
+.chart-container .apexcharts-xaxis-label,
+.chart-container .apexcharts-yaxis-title {
   fill: #f0f0f0 !important;
 }
 
 /* Grid lines */
-.candlestick-chart .apexcharts-grid line {
+.chart-container .apexcharts-grid line {
   stroke: #333333 !important;
 }
 
 /* Tooltip styling */
-.candlestick-chart .apexcharts-tooltip {
+.chart-container .apexcharts-tooltip {
   background-color: #2c2c2c !important;
   color: #f0f0f0 !important;
   border: 1px solid #555555 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
-.candlestick-chart .apexcharts-tooltip-title {
+.chart-container .apexcharts-tooltip-title {
   background-color: #3a3a3a !important;
   border-bottom: 1px solid #555555 !important;
 }
 
-/* Candlestick colors */
-.candlestick-chart .apexcharts-candlestick-up {
+/* Selection brush area */
+.chart-container .apexcharts-selection-rect {
+  fill: #4d4d4d;
+  stroke: #666666;
+  opacity: 0.3;
+}
+
+/* Zoom reset button */
+.chart-container .apexcharts-zoom-icon,
+.chart-container .apexcharts-reset-icon,
+.chart-container .apexcharts-menu-icon {
+  fill: #f0f0f0 !important;
+}
+
+/* Toolbar and menu */
+.chart-container .apexcharts-toolbar {
+  background-color: #2c2c2c !important;
+  border-radius: 4px;
+}
+
+.chart-container .apexcharts-menu {
+  background-color: #2c2c2c !important;
+  border: 1px solid #555555 !important;
+}
+
+.chart-container .apexcharts-menu-item:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* Loading state */
+.chart-container .apexcharts-loading {
+  background-color: rgba(26, 26, 26, 0.7) !important;
+}
+
+.chart-container .apexcharts-loading .apexcharts-loading-text {
+  color: #f0f0f0 !important;
+}
+
+/* No data message */
+.chart-container > div:not(.apexcharts-chart) {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+/* Chart type specific configurations */
+
+/* Candlestick chart specific */
+.chart-container.candlestick-chart .apexcharts-candlestick-up {
   fill: #26a69a !important; /* green for uptrend */
 }
 
-.candlestick-chart .apexcharts-candlestick-down {
+.chart-container.candlestick-chart .apexcharts-candlestick-down {
   fill: #ef5350 !important; /* red for downtrend */
 }
 
-/* Toolbar buttons */
-.candlestick-chart .apexcharts-toolbar {
-  background-color: #2c2c2c !important;
-  border-radius: 4px;
+/* Volume chart specific */
+.chart-container.volume-chart .apexcharts-bar-area {
+  fill: #8ecae6 !important;
 }
 
-.candlestick-chart .apexcharts-menu {
-  background-color: #2c2c2c !important;
-  border: 1px solid #555555 !important;
+/* Indicator chart specific */
+.chart-container.indicator-chart .apexcharts-line {
+  stroke-width: 2 !important;
 }
 
-.candlestick-chart .apexcharts-menu-item:hover {
-  background-color: #3a3a3a !important;
-}
-
-/* Loading state */
-.candlestick-chart .apexcharts-loading {
-  background-color: rgba(26, 26, 26, 0.7) !important;
-}
-
-.candlestick-chart .apexcharts-loading .apexcharts-loading-text {
-  color: #f0f0f0 !important;
-}
-
-/* No data message */
-.candlestick-chart > div:not(.apexcharts-chart) {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-}
-
-/* Dark mode theme for Volume Chart */
-.volume-chart {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  margin-top: 16px; /* Add spacing between charts if needed */
-}
-
-/* ApexCharts specific overrides */
-.volume-chart .apexcharts-canvas {
-  background-color: #1a1a1a !important;
-}
-
-/* Text colors */
-.volume-chart .apexcharts-title-text,
-.volume-chart .apexcharts-legend-text,
-.volume-chart .apexcharts-yaxis-label,
-.volume-chart .apexcharts-xaxis-label,
-.volume-chart .apexcharts-yaxis-title {
-  fill: #f0f0f0 !important;
-}
-
-/* Grid lines */
-.volume-chart .apexcharts-grid line {
-  stroke: #333333 !important;
-}
-
-/* Tooltip styling */
-.volume-chart .apexcharts-tooltip {
-  background-color: #2c2c2c !important;
-  color: #f0f0f0 !important;
-  border: 1px solid #555555 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.volume-chart .apexcharts-tooltip-title {
-  background-color: #3a3a3a !important;
-  border-bottom: 1px solid #555555 !important;
-}
-
-/* Volume bar color - you can customize this */
-.volume-chart .apexcharts-bar-area {
-  fill: #8ecae6 !important; /* This should match your plotOptions.bar.colors.ranges color */
-}
-
-/* Selection brush area */
-.volume-chart .apexcharts-selection-rect {
-  fill: #4d4d4d;
-  stroke: #666666;
-  opacity: 0.3;
-}
-
-/* Zoom reset button */
-.volume-chart .apexcharts-zoom-icon,
-.volume-chart .apexcharts-reset-icon,
-.volume-chart .apexcharts-menu-icon {
-  fill: #f0f0f0 !important;
-}
-
-/* Toolbar and menu */
-.volume-chart .apexcharts-toolbar {
-  background-color: #2c2c2c !important;
-  border-radius: 4px;
-}
-
-.volume-chart .apexcharts-menu {
-  background-color: #2c2c2c !important;
-  border: 1px solid #555555 !important;
-}
-
-.volume-chart .apexcharts-menu-item:hover {
-  background-color: #3a3a3a !important;
-}
-
-/* Loading state */
-.volume-chart .apexcharts-loading {
-  background-color: rgba(26, 26, 26, 0.7) !important;
-}
-
-.volume-chart .apexcharts-loading .apexcharts-loading-text {
-  color: #f0f0f0 !important;
-}
-
-/* No data message */
-.volume-chart > div:not(.apexcharts-chart) {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-}
-
-/* Dark mode theme for Indicator Chart */
-.indicator-chart {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  margin-top: 16px; /* Add spacing between charts if needed */
-}
-
-/* ApexCharts specific overrides */
-.indicator-chart .apexcharts-canvas {
-  background-color: #1a1a1a !important;
-}
-
-/* Text colors */
-.indicator-chart .apexcharts-title-text,
-.indicator-chart .apexcharts-legend-text,
-.indicator-chart .apexcharts-yaxis-label,
-.indicator-chart .apexcharts-xaxis-label,
-.indicator-chart .apexcharts-yaxis-title {
-  fill: #f0f0f0 !important;
-}
-
-/* Grid lines */
-.indicator-chart .apexcharts-grid line {
-  stroke: #333333 !important;
-}
-
-/* Tooltip styling */
-.indicator-chart .apexcharts-tooltip {
-  background-color: #2c2c2c !important;
-  color: #f0f0f0 !important;
-  border: 1px solid #555555 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.indicator-chart .apexcharts-tooltip-title {
-  background-color: #3a3a3a !important;
-  border-bottom: 1px solid #555555 !important;
-}
-
-/* Selection brush area */
-.indicator-chart .apexcharts-selection-rect {
-  fill: #4d4d4d;
-  stroke: #666666;
-  opacity: 0.3;
-}
-
-/* Zoom reset button */
-.indicator-chart .apexcharts-zoom-icon,
-.indicator-chart .apexcharts-reset-icon,
-.indicator-chart .apexcharts-menu-icon {
-  fill: #f0f0f0 !important;
-}
-
-/* Toolbar and menu */
-.indicator-chart .apexcharts-toolbar {
-  background-color: #2c2c2c !important;
-  border-radius: 4px;
-}
-
-.indicator-chart .apexcharts-menu {
-  background-color: #2c2c2c !important;
-  border: 1px solid #555555 !important;
-}
-
-.indicator-chart .apexcharts-menu-item:hover {
-  background-color: #3a3a3a !important;
-}
-
-/* Loading state */
-.indicator-chart .apexcharts-loading {
-  background-color: rgba(26, 26, 26, 0.7) !important;
-}
-
-.indicator-chart .apexcharts-loading .apexcharts-loading-text {
-  color: #f0f0f0 !important;
-}
-
-/* No data message */
-.indicator-chart > div:not(.apexcharts-chart) {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-}
-/* Dark mode theme for Strategy Chart */
-.strategy-chart {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  margin-top: 16px; /* Add spacing between charts if needed */
-}
-
-/* ApexCharts specific overrides */
-.strategy-chart .apexcharts-canvas {
-  background-color: #1a1a1a !important;
-}
-
-/* Text colors */
-.strategy-chart .apexcharts-title-text,
-.strategy-chart .apexcharts-legend-text,
-.strategy-chart .apexcharts-yaxis-label,
-.strategy-chart .apexcharts-xaxis-label,
-.strategy-chart .apexcharts-yaxis-title {
-  fill: #f0f0f0 !important;
-}
-
-/* Grid lines */
-.strategy-chart .apexcharts-grid line {
-  stroke: #333333 !important;
-}
-
-/* Tooltip styling */
-.strategy-chart .apexcharts-tooltip {
-  background-color: #2c2c2c !important;
-  color: #f0f0f0 !important;
-  border: 1px solid #555555 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.strategy-chart .apexcharts-tooltip-title {
-  background-color: #3a3a3a !important;
-  border-bottom: 1px solid #555555 !important;
-}
-
-/* Selection brush area */
-.strategy-chart .apexcharts-selection-rect {
-  fill: #4d4d4d;
-  stroke: #666666;
-  opacity: 0.3;
-}
-
-/* Zoom reset button */
-.strategy-chart .apexcharts-zoom-icon,
-.strategy-chart .apexcharts-reset-icon,
-.strategy-chart .apexcharts-menu-icon {
-  fill: #f0f0f0 !important;
-}
-
-/* Toolbar and menu */
-.strategy-chart .apexcharts-toolbar {
-  background-color: #2c2c2c !important;
-  border-radius: 4px;
-}
-
-.strategy-chart .apexcharts-menu {
-  background-color: #2c2c2c !important;
-  border: 1px solid #555555 !important;
-}
-
-.strategy-chart .apexcharts-menu-item:hover {
-  background-color: #3a3a3a !important;
-}
-
-/* Loading state */
-.strategy-chart .apexcharts-loading {
-  background-color: rgba(26, 26, 26, 0.7) !important;
-}
-
-.strategy-chart .apexcharts-loading .apexcharts-loading-text {
-  color: #f0f0f0 !important;
-}
-
-/* No data message */
-.strategy-chart > div:not(.apexcharts-chart) {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
-}
-
-/* Legend styling */
-.strategy-chart .apexcharts-legend {
-  background-color: #1a1a1a !important;
-  border: none !important;
-  padding: 4px 8px !important;
-}
-
-/* Marker colors - match with the colors in the component */
-.strategy-chart .apexcharts-marker {
+/* Strategy chart specific */
+.chart-container.strategy-chart .apexcharts-marker {
   stroke-width: 0 !important;
 }
 
-/* Dark mode theme for Portfolio Chart */
-.portfolio-chart {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  margin-top: 16px; /* Add spacing between charts */
-}
-
-/* ApexCharts specific overrides */
-.portfolio-chart .apexcharts-canvas {
+/* Portfolio chart specific */
+.chart-container.portfolio-chart .apexcharts-legend {
   background-color: #1a1a1a !important;
-}
-
-/* Text colors */
-.portfolio-chart .apexcharts-title-text,
-.portfolio-chart .apexcharts-legend-text,
-.portfolio-chart .apexcharts-yaxis-label,
-.portfolio-chart .apexcharts-xaxis-label,
-.portfolio-chart .apexcharts-yaxis-title {
-  fill: #f0f0f0 !important;
-}
-
-/* Grid lines */
-.portfolio-chart .apexcharts-grid line {
-  stroke: #333333 !important;
-}
-
-/* Tooltip styling */
-.portfolio-chart .apexcharts-tooltip {
-  background-color: #2c2c2c !important;
-  color: #f0f0f0 !important;
-  border: 1px solid #555555 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-.portfolio-chart .apexcharts-tooltip-title {
-  background-color: #3a3a3a !important;
-  border-bottom: 1px solid #555555 !important;
-}
-
-/* Selection brush area */
-.portfolio-chart .apexcharts-selection-rect {
-  fill: #4d4d4d;
-  stroke: #666666;
-  opacity: 0.3;
-}
-
-/* Zoom reset button */
-.portfolio-chart .apexcharts-zoom-icon,
-.portfolio-chart .apexcharts-reset-icon,
-.portfolio-chart .apexcharts-menu-icon {
-  fill: #f0f0f0 !important;
-}
-
-/* Toolbar and menu */
-.portfolio-chart .apexcharts-toolbar {
-  background-color: #2c2c2c !important;
-  border-radius: 4px;
-}
-
-.portfolio-chart .apexcharts-menu {
-  background-color: #2c2c2c !important;
-  border: 1px solid #555555 !important;
-}
-
-.portfolio-chart .apexcharts-menu-item:hover {
-  background-color: #3a3a3a !important;
-}
-
-/* Loading state */
-.portfolio-chart .apexcharts-loading {
-  background-color: rgba(26, 26, 26, 0.7) !important;
-}
-
-.portfolio-chart .apexcharts-loading .apexcharts-loading-text {
-  color: #f0f0f0 !important;
-}
-
-/* No data message */
-.portfolio-chart > div:not(.apexcharts-chart) {
-  background-color: #1a1a1a;
-  color: #f0f0f0;
-  padding: 20px;
-  text-align: center;
-  border-radius: 8px;
+  border: none !important;
+  padding: 4px 8px !important;
 }

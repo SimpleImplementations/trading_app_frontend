@@ -153,7 +153,7 @@ const StrategyChart: React.FC<StrategyChartProps> = ({ data }) => {
   }
 
   return (
-    <div className="strategy-chart">
+    <div className="chart-container strategy-chart">
       <ReactApexChart options={options} series={series} type="scatter" height={160} width="100%" />
     </div>
   );

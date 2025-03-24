@@ -156,7 +156,7 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
   }
 
   return (
-    <div className="portfolio-chart">
+    <div className="chart-container portfolio-chart">
       <ReactApexChart options={options} series={series} type="line" height={350} width="100%" />
     </div>
   );

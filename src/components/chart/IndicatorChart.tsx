@@ -81,7 +81,7 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
   }
 
   return (
-    <div className="indicator-chart">
+    <div className="chart-container indicator-chart">
       <ReactApexChart
         options={options}
         series={[{ name: data[0].name, data: seriesData }]}

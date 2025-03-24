@@ -28,7 +28,7 @@ const EMACrossoverChart: React.FC<EMACrossoverChartProps> = ({ marketData, indic
   };
 
   // Define EMA line colors with transparency
-  const emaColors = ["rgba(255, 206, 86, 0.7)", "rgba(75, 192, 192, 0.7)"];
+  const emaColors = ["rgba(255, 42, 42, 0.7)", "rgba(255, 235, 56, 0.7)"];
 
   // Collect indicator series
   const indicatorSeries = Object.entries(indicatorData)
@@ -123,8 +123,6 @@ const EMACrossoverChart: React.FC<EMACrossoverChartProps> = ({ marketData, indic
       animations: {
         enabled: false,
       },
-      background: "#121212",
-      foreColor: "#ffffff",
     },
     title: {
       text: "EMA Crossover Strategy Analysis",
@@ -194,9 +192,6 @@ const EMACrossoverChart: React.FC<EMACrossoverChartProps> = ({ marketData, indic
       width: [1, 2, 2], // Width for candlestick and lines
       curve: "smooth",
     },
-    theme: {
-      mode: "dark",
-    },
     legend: {
       show: true,
       labels: {
@@ -233,7 +228,7 @@ const EMACrossoverChart: React.FC<EMACrossoverChartProps> = ({ marketData, indic
   }
 
   return (
-    <div className="strategy-combo-chart">
+    <div className="chart-container candlestick-chart">
       <ReactApexChart options={options} series={series} type="candlestick" height={600} width="100%" />
     </div>
   );

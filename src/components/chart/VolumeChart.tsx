@@ -95,7 +95,7 @@ const VolumeChart: React.FC<VolumeChartProps> = ({ data }) => {
   }
 
   return (
-    <div className="volume-chart">
+    <div className="chart-container volume-chart">
       <ReactApexChart
         options={volumeOptions}
         series={[{ name: "Volume", data: volumeData }]}

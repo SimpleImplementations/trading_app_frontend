@@ -68,7 +68,7 @@ const CandlestickChart: React.FC<CandlestickChartProps> = ({ data }) => {
   }
 
   return (
-    <div className="candlestick-chart">
+    <div className="chart-container candlestick-chart">
       <ReactApexChart options={options} series={[{ data: seriesData }]} type="candlestick" height={400} width="100%" />
     </div>
   );
