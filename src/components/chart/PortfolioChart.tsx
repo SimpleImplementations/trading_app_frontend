@@ -75,7 +75,7 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     },
     colors: ["#00E396", "#008FFB", "#FEB019", "#FF4560", "#775DD0", "#26C6DA"], // Green, Blue, Orange , Coral, Purple, Cyan
     stroke: {
-      curve: "straight",
+      curve: "stepline",
       width: 2,
     },
     xaxis: {

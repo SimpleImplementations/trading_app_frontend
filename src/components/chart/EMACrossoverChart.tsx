@@ -190,7 +190,7 @@ const EMACrossoverChart: React.FC<EMACrossoverChartProps> = ({ marketData, indic
     annotations,
     stroke: {
       width: [1, 2, 2], // Width for candlestick and lines
-      curve: "smooth",
+      curve: "straight",
     },
     legend: {
       show: true,

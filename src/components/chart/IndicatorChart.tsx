@@ -40,7 +40,7 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
       align: "left",
     },
     stroke: {
-      curve: "smooth",
+      curve: "straight",
       width: 2,
     },
     xaxis: {
