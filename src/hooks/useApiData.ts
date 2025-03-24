@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DBModel } from "../interfaces/dbModels";
 
 interface UseAPIDataProps {
@@ -11,45 +11,34 @@ export const useAPIData = <T extends DBModel>({
   initialFetch = true,
 }: UseAPIDataProps) => {
   const [dataArray, setDataArray] = useState<T[]>([]);
+  const alreadyCalledOnce = useRef(false);
 
   const handleDataReceived = (data: T | T[]) => {
     setDataArray((prevData) => {
       if (Array.isArray(data)) {
         // For batch
-        // Sort the entire dataset
         const newData = [...prevData, ...data];
-        return newData.sort((a, b) => {
-          const timestampA = new Date(a.timestamp).getTime();
-          const timestampB = new Date(b.timestamp).getTime();
-          return timestampA - timestampB;
-        });
+        return newData.sort((a, b) => {return a.id - b.id;});
       } else {
         // For single data points
 
-        // Check if we already have a data point with this timestamp
+        // Check if we already have a data point with this id
         const existingPoint = prevData.find(
-          (item) => item.timestamp === data.timestamp
+          (item) => item.id === data.id
         );
         if (existingPoint) {
           return prevData;
         }
 
         if (prevData.length > 0) {
-          const lastTimestamp = new Date(
-            prevData[prevData.length - 1].timestamp
-          ).getTime();
-          const newTimestamp = new Date(data.timestamp).getTime();
-
           // If the new point is newer than our most recent point, just append it
-          if (newTimestamp >= lastTimestamp) {
+          if (data.id >= prevData[prevData.length - 1].id) {
             return [...prevData, data];
           }
           // Otherwise, it's an out-of-order point and we need to sort
           else {
             return [...prevData, data].sort((a, b) => {
-              const timestampA = new Date(a.timestamp).getTime();
-              const timestampB = new Date(b.timestamp).getTime();
-              return timestampA - timestampB;
+              return a.id - b.id;
             });
           }
         }
@@ -60,7 +49,8 @@ export const useAPIData = <T extends DBModel>({
   };
 
   useEffect(() => {
-    if (initialFetch) {
+    if (initialFetch && !alreadyCalledOnce.current) {
+      alreadyCalledOnce.current = true;
       const fetchInitialData = async () => {
         try {
           const response = await fetch(fetchUrl);

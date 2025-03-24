@@ -11,6 +11,7 @@ import IndicatorPollerPage from "./pages/IndicatorPollerPage";
 import { BackendConfigProvider } from "./contexts/BackendConfigContext";
 import BackendConfigPage from "./pages/BackendConfigPage";
 import StrategyChartPage from "./pages/StrategyChartPage";
+import StrategyPollerPage from "./pages/PortfolioPollerPage";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
               <Link to="/frontend-config">Frontend Config</Link> |<Link to="/backend-config">Backend Config</Link> |
               <Link to="/chart">Candlestick Chart</Link> |<Link to="/strategy-analysis">Strategy Analysis</Link> |
               <Link to="/data-poller">Data Poller</Link> |<Link to="/indicator-poller">Indicator Poller</Link> |
-              <Link to="/tables">Tables</Link>
+              <Link to="/portfolio-poller">Potfolio Poller</Link> |<Link to="/tables">Tables</Link>
             </nav>
 
             <div className="content">
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/strategy-analysis" element={<RenderIfConfigured children={<StrategyChartPage />} />} />
                 <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
                 <Route path="/indicator-poller" element={<RenderIfConfigured children={<IndicatorPollerPage />} />} />
+                <Route path="/portfolio-poller" element={<RenderIfConfigured children={<StrategyPollerPage />} />} />
                 <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />
               </Routes>
             </div>
