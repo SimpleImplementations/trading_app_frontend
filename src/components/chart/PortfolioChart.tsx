@@ -92,7 +92,6 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
         offsetX: 0,
         align: "left",
         padding: 4,
-        formatter: (value) => value.toFixed(2),
       },
       axisBorder: {
         offsetX: 0,

@@ -57,7 +57,6 @@ const IndicatorChart: React.FC<IndicatorChartProps> = ({ data }) => {
         offsetX: 0, // Ensure this is identical between charts
         align: "left", // Ensure label alignment is identical
         padding: 4, // Set explicit padding and keep identical
-        formatter: (value) => value.toFixed(2),
       },
       axisBorder: {
         offsetX: 0, // Ensure axis border offset is identical
