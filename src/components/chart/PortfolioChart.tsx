@@ -41,12 +41,19 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
       animations: {
         enabled: false, // Disable animations for better performance
       },
+      events: {
+        mounted: function (chart) {
+          // Hide first two series on initial render
+          chart.hideSeries("Cash");
+          chart.hideSeries("Position Value");
+        },
+      },
     },
     title: {
       text: "Portfolio Status",
       align: "left",
     },
-    colors: ["#00E396", "#008FFB", "#FEB019"], // Green for cash, blue for position value, orange for portfolio value
+    colors: ["#00E396", "#008FFB", "#FEB019"],
     stroke: {
       curve: "straight",
       width: [2, 2, 2],
@@ -84,14 +91,17 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
     {
       name: "Cash",
       data: cashData,
+      visible: false,
     },
     {
       name: "Position Value",
       data: positionValueData,
+      visible: false,
     },
     {
       name: "Portfolio Value",
       data: portfolioValueData,
+      visible: true,
     },
   ];
 
