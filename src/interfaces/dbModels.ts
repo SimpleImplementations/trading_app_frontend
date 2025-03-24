@@ -1,6 +1,7 @@
 import { OperationType } from "../constants/enums";
 
 export interface DBModel {
+  id: number;
   timestamp: string; // ISO format string
 }
 
