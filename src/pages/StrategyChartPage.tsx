@@ -1,11 +1,12 @@
 import { useAPIData } from "../hooks/useApiData";
 import { API_ENDPOINTS } from "../constants/api";
-import { MarketData, IndicatorsSet, StrategyData } from "../interfaces/dbModels";
+import { MarketData, IndicatorsSet, StrategyData, PortfolioStatus } from "../interfaces/dbModels";
 import DataPoller from "../components/DataPoller";
 import EMACrossoverChart from "../components/chart/EMACrossoverChart";
 import { useIndicatorProcessing } from "../hooks/useIndicatorProcessing";
 import { useBackendConfig } from "../contexts/BackendConfigContext";
 import { StrategyType } from "../constants/enums";
+import PortfolioChart from "../components/chart/PortfolioChart";
 
 function StrategyChartPage() {
   const backendConfig = useBackendConfig();
@@ -24,6 +25,10 @@ function StrategyChartPage() {
     fetchUrl: API_ENDPOINTS.STRATEGY_BATCH,
   });
 
+  const [portfolioDataArray, handlePortfolioDataReceived] = useAPIData<PortfolioStatus>({
+    fetchUrl: API_ENDPOINTS.PORTFOLIO_STATUS_BATCH,
+  });
+
   return (
     <div className="strategy-analysis-page">
       <DataPoller<MarketData> fetchEndpoint={API_ENDPOINTS.MARKET_DATA} onDataReceived={handleMarketDataReceived} />
@@ -32,6 +37,11 @@ function StrategyChartPage() {
         onDataReceived={handleIndicatorSetReceived}
       />
       <DataPoller<StrategyData> fetchEndpoint={API_ENDPOINTS.STRATEGY} onDataReceived={handleStrategyDataReceived} />
+
+      <DataPoller<PortfolioStatus>
+        fetchEndpoint={API_ENDPOINTS.PORTFOLIO_STATUS}
+        onDataReceived={handlePortfolioDataReceived}
+      />
 
       <div>
         <div>
@@ -48,11 +58,17 @@ function StrategyChartPage() {
       </div>
 
       <div>
-        <EMACrossoverChart
-          marketData={marketDataArray}
-          indicatorData={indicatorDataByType}
-          strategyData={strategyDataArray}
-        />
+        {backendConfig.strategy === StrategyType.EMACROSSOVER && (
+          <EMACrossoverChart
+            marketData={marketDataArray}
+            indicatorData={indicatorDataByType}
+            strategyData={strategyDataArray}
+          />
+        )}
+      </div>
+
+      <div>
+        <PortfolioChart data={portfolioDataArray} />
       </div>
     </div>
   );
