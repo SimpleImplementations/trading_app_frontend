@@ -5,16 +5,25 @@ interface UseAPIDataProps {
   fetchUrl: string;
   initialFetch?: boolean;
   dedupTimestamps?: boolean;
+  symbol?: string;
 }
 
 export const useAPIData = <T extends DBModel>({
   fetchUrl,
   initialFetch = true,
-  dedupTimestamps=false
-
+  dedupTimestamps = false,
+  symbol
 }: UseAPIDataProps) => {
   const [dataArray, setDataArray] = useState<T[]>([]);
   const alreadyCalledOnce = useRef(false);
+
+  const buildUrl = (baseUrl: string): string => {
+    // Append the symbol as a query parameter if available
+    console.log("SYMBOL", symbol);
+    const url = symbol ? `${baseUrl}/${symbol}` : baseUrl;
+    console.log("API request URL:", url);
+    return url;
+  };
 
   const handleDataReceived = (data: T | T[]) => {
     setDataArray((prevData) => {
@@ -31,8 +40,7 @@ export const useAPIData = <T extends DBModel>({
           }
           return Array.from(uniqueTimestamps.values());
         }
-        return newData
-        
+        return newData;
       } else {
         // For single data points
 
@@ -47,7 +55,7 @@ export const useAPIData = <T extends DBModel>({
         if (prevData.length > 0) {
           const lastElement = prevData[prevData.length - 1];
           if (dedupTimestamps && lastElement.timestamp === data.timestamp) {
-            prevData.pop()
+            prevData.pop();
             return [...prevData, data];
           }
           return [...prevData, data];
@@ -59,11 +67,18 @@ export const useAPIData = <T extends DBModel>({
   };
 
   useEffect(() => {
+    // Reset data when symbol changes
+    setDataArray([]);
+    alreadyCalledOnce.current = false;
+  }, [symbol]);
+
+  useEffect(() => {
     if (initialFetch && !alreadyCalledOnce.current) {
       alreadyCalledOnce.current = true;
       const fetchInitialData = async () => {
         try {
-          const response = await fetch(fetchUrl);
+          const url = buildUrl(fetchUrl);
+          const response = await fetch(url);
           const json = await response.json();
           
           // Safely cast the response to the expected type
@@ -77,7 +92,7 @@ export const useAPIData = <T extends DBModel>({
 
       fetchInitialData();
     }
-  }, [fetchUrl, initialFetch]);
+  }, [fetchUrl, initialFetch, symbol]);
 
   return [dataArray, handleDataReceived] as const;
 };

@@ -12,6 +12,8 @@ import { BackendConfigProvider } from "./contexts/BackendConfigContext";
 import BackendConfigPage from "./pages/BackendConfigPage";
 import StrategyChartPage from "./pages/StrategyChartPage";
 import StrategyPollerPage from "./pages/PortfolioPollerPage";
+import { SymbolProvider } from "./contexts/SymbolContext";
+import ContextReadyProvider from "./components/ContextReadyProvider";
 
 function App() {
   return (
@@ -33,10 +35,54 @@ function App() {
                 <Route path="/configure-backend" element={<RenderIfConfigured children={<ConfigureBackend />} />} />
                 <Route path="/frontend-config" element={<FrontendConfigPage />} />
                 <Route path="/backend-config" element={<BackendConfigPage />} />
-                <Route path="/chart" element={<RenderIfConfigured children={<ChartPage />} />} />
-                <Route path="/strategy-analysis" element={<RenderIfConfigured children={<StrategyChartPage />} />} />
-                <Route path="/data-poller" element={<RenderIfConfigured children={<DataPollerPage />} />} />
-                <Route path="/indicator-poller" element={<RenderIfConfigured children={<IndicatorPollerPage />} />} />
+                <Route
+                  path="/chart"
+                  element={
+                    <RenderIfConfigured>
+                      <SymbolProvider>
+                        <ContextReadyProvider>
+                          <ChartPage />
+                        </ContextReadyProvider>
+                      </SymbolProvider>
+                    </RenderIfConfigured>
+                  }
+                />
+                <Route
+                  path="/strategy-analysis"
+                  element={
+                    <RenderIfConfigured>
+                      <SymbolProvider>
+                        <ContextReadyProvider>
+                          <StrategyChartPage />
+                        </ContextReadyProvider>
+                      </SymbolProvider>
+                    </RenderIfConfigured>
+                  }
+                />
+                <Route
+                  path="/data-poller"
+                  element={
+                    <RenderIfConfigured>
+                      <SymbolProvider>
+                        <ContextReadyProvider>
+                          <DataPollerPage />
+                        </ContextReadyProvider>
+                      </SymbolProvider>
+                    </RenderIfConfigured>
+                  }
+                />
+                <Route
+                  path="/indicator-poller"
+                  element={
+                    <RenderIfConfigured>
+                      <SymbolProvider>
+                        <ContextReadyProvider>
+                          <IndicatorPollerPage />
+                        </ContextReadyProvider>
+                      </SymbolProvider>
+                    </RenderIfConfigured>
+                  }
+                />
                 <Route path="/portfolio-poller" element={<RenderIfConfigured children={<StrategyPollerPage />} />} />
                 <Route path="/tables" element={<RenderIfConfigured children={<TablesPage />} />} />
               </Routes>

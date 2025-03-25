@@ -4,71 +4,70 @@ import { useFrontendConfig } from "../contexts/FrontendConfigContext";
 export interface DataPollerProps<T> {
   fetchEndpoint: string;
   onDataReceived: (data: T) => void;
+  symbol?: string;
 }
 
-function DataPoller<T>({ fetchEndpoint, onDataReceived }: DataPollerProps<T>) {
+function DataPoller<T>({ fetchEndpoint, onDataReceived, symbol }: DataPollerProps<T>) {
   const frontendConfig = useFrontendConfig();
   const [isPolling, setIsPolling] = useState(false);
   const pollingIntervalRef = useRef<number | null>(null);
-  const alreadyCalledOnce = useRef(false);
 
   const transform = (data: any): T => {
     return data as T;
   };
 
+  // Build URL with symbol as path parameter if provided
+  const buildUrl = (): string => {
+    if (symbol) {
+      return `${fetchEndpoint}/${symbol}`;
+    }
+    return fetchEndpoint;
+  };
+
   const fetchData = async () => {
     try {
-      const response = await fetch(fetchEndpoint);
+      const url = buildUrl();
+      const response = await fetch(url);
       const json = await response.json();
 
       if (json !== null) {
         const transformedData = transform(json);
         onDataReceived(transformedData);
-      } else {
-        // TODO check if this should be consider a valid response
-        stopPolling();
       }
     } catch (error) {
-      console.error(error);
+      console.error("Fetch error:", error);
     }
   };
 
   const startPolling = () => {
     if (!isPolling) {
       setIsPolling(true);
-
-      pollingIntervalRef.current = window.setInterval(() => {
-        fetchData();
-      }, frontendConfig.pollingIntervalMs);
+      pollingIntervalRef.current = window.setInterval(fetchData, frontendConfig.pollingIntervalMs);
     }
   };
 
   const stopPolling = () => {
-    // don't check of isPolling because with strict mode it seems to be false
     if (pollingIntervalRef.current !== null) {
       window.clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
       setIsPolling(false);
-      console.log("properly stopped polling");
     }
   };
 
   useEffect(() => {
-    // Only set up polling once, even if effect runs twice, this ocurres because of the strict mode
-    if (!alreadyCalledOnce.current) {
-      alreadyCalledOnce.current = true;
-      fetchData(); // Initial data fetch
-    }
+    // Initial fetch
+    fetchData();
 
-    startPolling(); // Start the polling interval
+    // Start polling
+    startPolling();
 
+    // Cleanup on unmount or when dependencies change
     return () => {
-      // Cleanup function
       stopPolling();
     };
-  }, []);
+  }, [symbol, fetchEndpoint]);
 
-  // Add an effect to restart polling when pollingIntervalMs changes
+  // Restart polling when interval changes
   useEffect(() => {
     if (isPolling) {
       stopPolling();
