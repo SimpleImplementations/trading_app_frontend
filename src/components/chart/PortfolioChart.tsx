@@ -62,10 +62,16 @@ const PortfolioChart: React.FC<PortfolioChartProps> = ({ data }) => {
       },
       events: {
         mounted: function (chart) {
-          chart.hideSeries("Cash");
-          chart.hideSeries("Position Value");
-          chart.hideSeries("Realized PNL");
-          chart.hideSeries("Unrealized PNL");
+          try {
+            if (chart) {
+              chart.hideSeries("Cash");
+              chart.hideSeries("Position Value");
+              chart.hideSeries("Realized PNL");
+              chart.hideSeries("Unrealized PNL");
+            }
+          } catch (error) {
+            // Silently ignore the error
+          }
         },
       },
     },
