@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useBackendConfigUnsafe, useUpdateBackendConfig } from "../contexts/BackendConfigContext";
-import { StrategyType } from "../constants/enums";
+import { AvailableSymbols, StrategyType } from "../constants/enums";
 import { EMACrossoverParams } from "../interfaces/models";
 import { BackendConfig, defaultBackendConfig } from "../interfaces/backendConfig";
 
@@ -60,6 +60,26 @@ function BackendConfigPage() {
         [id]: value,
       }));
     }
+  };
+
+  const handleSymbolChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = e.target;
+
+    setLocalConfig((prevConfig) => {
+      if (checked) {
+        // Add symbol if it's not already in the array
+        return {
+          ...prevConfig,
+          symbols: [...prevConfig.symbols, value],
+        };
+      } else {
+        // Remove symbol from the array
+        return {
+          ...prevConfig,
+          symbols: prevConfig.symbols.filter((symbol) => symbol !== value),
+        };
+      }
+    });
   };
 
   const handleSave = () => {
@@ -167,6 +187,27 @@ function BackendConfigPage() {
             </div>
           </div>
         )}
+
+        {/* Symbols Selection */}
+        <div className="symbols-section">
+          <h3>Trading Symbols</h3>
+          <div className="symbols-grid">
+            {Object.values(AvailableSymbols).map((symbol) => (
+              <div key={symbol} className="symbol-checkbox">
+                <input
+                  type="checkbox"
+                  id={`symbol-${symbol}`}
+                  value={symbol}
+                  checked={currentConfig.symbols.includes(symbol)}
+                  onChange={handleSymbolChange}
+                  disabled={!isEditing}
+                />
+                <label htmlFor={`symbol-${symbol}`}>{symbol}</label>
+              </div>
+            ))}
+          </div>
+          <small>Select the symbols to include in trading</small>
+        </div>
 
         <div className="button-group">
           {isEditing ? (

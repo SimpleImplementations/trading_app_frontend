@@ -10,3 +10,12 @@ export enum OperationType {
 export enum StrategyType {
     EMACROSSOVER = "ema_crossover",
 }
+
+export enum AvailableSymbols {
+    MSFT = "MSFT",
+    AAPL = "AAPL",
+    GOOGL = "GOOGL",
+    AMZN = "AMZN",
+    TSLA = "TSLA",
+    ORCL = "ORCL"
+}

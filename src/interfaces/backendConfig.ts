@@ -1,10 +1,11 @@
-import { StrategyType } from "../constants/enums";
+import { AvailableSymbols, StrategyType } from "../constants/enums";
 import { StrategyParamsUnion } from "./models";
 
 export interface BackendConfig {
   readonly brokerType: string;
   readonly strategy: StrategyType;
   readonly strategyParams: StrategyParamsUnion;
+  readonly symbols: string[];
 }
 
 export const defaultBackendConfig: BackendConfig = {
@@ -14,5 +15,6 @@ export const defaultBackendConfig: BackendConfig = {
     strategy_type: StrategyType.EMACROSSOVER,
     fast_period: 12,
     slow_period: 26
-  }
+  },
+  symbols: Object.values(AvailableSymbols)
 };
