@@ -18,15 +18,17 @@ function ChartPage() {
     symbol: selectedSymbol,
   });
 
-  // const [indicatorSetsArray, handleIndicatorSetReceived] = useAPIData<IndicatorsSet>({
-  //   fetchUrl: API_ENDPOINTS.INDICATORS_SET_BATCH,
-  // });
+  const [indicatorSetsArray, handleIndicatorSetReceived] = useAPIData<IndicatorsSet>({
+    fetchUrl: API_ENDPOINTS.INDICATORS_SET_BATCH,
+    symbol: selectedSymbol,
+  });
 
-  // const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
+  const indicatorDataByType = useIndicatorProcessing(indicatorSetsArray);
 
-  // const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
-  //   fetchUrl: API_ENDPOINTS.STRATEGY_BATCH,
-  // });
+  const [strategyDataArray, handleStrategyDataReceived] = useAPIData<StrategyData>({
+    fetchUrl: API_ENDPOINTS.STRATEGY_BATCH,
+    symbol: selectedSymbol,
+  });
 
   // const [portfolioDataArray, handlePortfolioDataReceived] = useAPIData<PortfolioStatus>({
   //   fetchUrl: API_ENDPOINTS.PORTFOLIO_STATUS_BATCH,
@@ -39,14 +41,19 @@ function ChartPage() {
         onDataReceived={handleMarketDataReceived}
         symbol={selectedSymbol}
       />
-      {/* 
+
       <DataPoller<IndicatorsSet>
         fetchEndpoint={API_ENDPOINTS.INDICATORS_SET}
         onDataReceived={handleIndicatorSetReceived}
+        symbol={selectedSymbol}
       />
 
-      <DataPoller<StrategyData> fetchEndpoint={API_ENDPOINTS.STRATEGY} onDataReceived={handleStrategyDataReceived} />
-
+      <DataPoller<StrategyData>
+        fetchEndpoint={API_ENDPOINTS.STRATEGY}
+        onDataReceived={handleStrategyDataReceived}
+        symbol={selectedSymbol}
+      />
+      {/*
       <DataPoller<PortfolioStatus>
         fetchEndpoint={API_ENDPOINTS.PORTFOLIO_STATUS}
         onDataReceived={handlePortfolioDataReceived}
@@ -61,8 +68,7 @@ function ChartPage() {
         <VolumeChart data={marketDataArray} />
       </div>
 
-      {/* Render indicator charts */}
-      {/* {Object.keys(indicatorDataByType).length > 0 && (
+      {Object.keys(indicatorDataByType).length > 0 && (
         <div>
           {Object.entries(indicatorDataByType).map(([indicatorName, dataArray]) => (
             <div key={indicatorName}>
@@ -70,11 +76,11 @@ function ChartPage() {
             </div>
           ))}
         </div>
-      )} */}
+      )}
 
-      {/* <div>
+      <div>
         <StrategyChart data={strategyDataArray} />
-      </div> */}
+      </div>
 
       {/* <div>
         <PortfolioChart data={portfolioDataArray} />
